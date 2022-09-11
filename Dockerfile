@@ -1,15 +1,26 @@
 FROM node:alpine3.16
 
+ARG USERNAME=node
+#ARG GROUP=appgroup
+
+#RUN addgroup -S $GROUP && \
+#    adduser -S $USERNAME -G $GROUP && \
+#    
 RUN apk update && \
+    apk add sudo sox && \
     rm -rf /var/cache/apk/*
 
 COPY ./vue3 /app
 
 WORKDIR /app
 
-RUN npm install && \
-    rm -rf ./dist && \
+RUN rm -rf ./dist && \
+    chown -R $USERNAME /app && \
+    npm install && \
     npm run build
+
+# Set the default user.
+USER $USERNAME
 
 # use the nginx
 #FROM nginx:alpine as webserver

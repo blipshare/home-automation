@@ -5,6 +5,7 @@ import type { RouteRecordRaw } from "vue-router";
 import Login from "./views/Login.vue";
 import Home from "./views/Home.vue";
 import SpeechDataTable from "./views/SpeechDataTable.vue";
+import Modal from "./views/speech_data/NewTTSData.vue";
 //import RepDataTable from "./views/RepDataTable.vue";
 //import MLModel from "./views/MLModel.vue";
 
@@ -33,6 +34,11 @@ const routes: RouteRecordRaw[] = [
     path: "/speech_data",
     name: "Speech Data",
     component: SpeechDataTable,
+  },
+  {
+    path: "/modal",
+    name: "Modal",
+    component: Modal,
   },
   //  {
   //    path: "/model",
