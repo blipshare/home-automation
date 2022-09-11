@@ -6,10 +6,11 @@ export function sendDataToServer() {
   const open            = ref(false);
   const text            = ref("");
   const name            = ref("");
+  const userId          = ref(1); // TODO: Set this to logged in user's id
   const submitBtnText   = ref("Prepare");
 
-  const tts_file_path = ref("");
-  const is_play_ready = ref(false)
+  const ttsFilePath     = ref("");
+  const isPlayReady     = ref(false)
 
   function clearFields() {
     loading.value       = false;
@@ -17,16 +18,16 @@ export function sendDataToServer() {
     text.value          = "";
     name.value          = "";
     open.value          = false;
-    tts_file_path.value = "";
-    is_play_ready.value = false;
+    ttsFilePath.value   = "";
+    isPlayReady.value   = false;
     submitBtnText.value = "Prepare";
   }
 
   function setAudioSource() {
-    if (is_play_ready) {
+    if (isPlayReady) {
       console.log("Gets here");
       var audio = <HTMLAudioElement> document.getElementById("audio");
-      audio.src = tts_file_path.value;
+      audio.src = ttsFilePath.value.replace("/app", ""); // TODO: Fix this in data-service
     }
   }
 
@@ -36,12 +37,10 @@ export function sendDataToServer() {
       return;
     }
 
-    error.value = "";
-    console.log("Sending Data to TTS");
+    error.value   = "";
     loading.value = true;
-    name.value = "Test User";
-    const data = {"name": name.value, "text": text.value};
-    console.log(JSON.stringify(data));
+    name.value    = "Test User"; // TODO: use the logged in user's name
+    const data    = {"name": name.value, "text": text.value};
 
     return await fetch("http://localhost:80/tts-service", {
       method: "POST",
@@ -53,26 +52,55 @@ export function sendDataToServer() {
       },
       body: JSON.stringify(data),
     }).then(res => {
-      console.log("Done pinging the server");
-      console.log(res.status);
       if (!res.ok) {
-        const err = new Error(res.statusText);
-        console.log(err.message);
-        open.value = false;
-        is_play_ready.value = false;
-        error.value = "Could not process the data. Please try again!!!";
+        open.value        = false;
+        isPlayReady.value = false;
+        error.value       = "Could not process the data. Please try again!!!";
         throw error;
       }
       res.json().then((resp_data: any) => {
-        error.value = "";
-        console.log(resp_data);
-        tts_file_path.value = resp_data.data.replace("/app", "");
-
-        console.log("Successfully added the data")
-        open.value = true;
-        is_play_ready.value = true;
-        setAudioSource();
+        error.value         = "";
+        ttsFilePath.value   = resp_data.data;
+        open.value          = true;
+        isPlayReady.value   = true;
         submitBtnText.value = "Send";
+        setAudioSource();
+      });
+    }).then(() => {
+      loading.value = false;
+    });
+  }
+
+  async function saveData() {
+    if (ttsFilePath.value.trim().length == 0) {
+      error.value = "Error when sending data. Please try again!!!";
+      return;
+    }
+
+    error.value   = "";
+    loading.value = true;
+
+    const data    = {"user_id": userId.value, "text": text.value, "audio_file_name": ttsFilePath.value};
+
+    return await fetch("http://localhost:80/data-service/tts/create_tts", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "Access-Control-Allow-Methods": "POST",
+        "Access-Control-Allow-Headers":
+          "Content-Type, Authorization, X-Requested-With",
+      },
+      body: JSON.stringify(data),
+    }).then(res => {
+      if (!res.ok) {
+        open.value        = false;
+        error.value       = "Could not send the data. Please try again!!!";
+        console.log(res.statusText);
+        throw error;
+      }
+      res.json().then(() => {
+        console.log("Saved data");
+        clearFields();
       });
     }).then(() => {
       loading.value = false;
@@ -83,7 +111,7 @@ export function sendDataToServer() {
     if (submitBtnText.value == "Prepare") {
       await convertTextToSpeech();
     } else if(submitBtnText.value == "Send") {
-      // TODO: Implement sending data to data service to store
+      await saveData();
     }
   }
 

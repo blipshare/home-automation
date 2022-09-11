@@ -98,7 +98,12 @@
                   <th
                     class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
                   >
-                    Audio Filename
+                    Audio
+                  </th>
+                  <th
+                    class="px-5 py-3 text-xs font-semibold tracking-wider text-left text-gray-600 uppercase bg-gray-100 border-b-2 border-gray-200"
+                  >
+                    Command
                   </th>
                 </tr>
               </thead>
@@ -133,7 +138,19 @@
                      class="px-5 py-5 text-sm bg-white border-b border-gray-200"
                    >
                         <div class="text-sm font-medium leading-5 text-gray-900">
-                          {{ u.audio_file_name}}
+                          <audio id="audio" v-bind:src="u.audio_file_url" type="audio/wav" class="mt-2" controls />
+                        </div>
+                   </td>
+                   <td
+                     class="px-5 py-5 text-sm bg-white border-b border-gray-200"
+                   >
+                        <div class="text-sm font-medium leading-5 text-gray-900">
+                          <button
+                            @click=""
+                            class="px-4 py-1 font-medium tracking-wide text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none"
+                          >
+                            Resend
+                          </button>
                         </div>
                    </td>
                  </tr>
@@ -168,8 +185,8 @@
 </template>
 
 <script setup lang="ts">
-  import NewTTSData from "../components/speech_data/NewTTSData.vue";
-  import { fetchData } from "../hooks/fetchSpeechData";
+  import NewTTSData from "@/components/speech_data/NewTTSData.vue";
+  import { fetchData } from "@/hooks/speech_data/fetchSpeechData";
   const {
       data,
       loading,

@@ -5,6 +5,7 @@ export interface IPaginatedData {
   user_id:          string;
   text:             string;
   audio_file_name:  string;
+  audio_file_url:   string;
 }
 
 export function fetchData() {
@@ -78,11 +79,13 @@ export function fetchData() {
           console.log(tts_data.items);
           for (let i = 0; i < tts_data.count; i++) {
             const data = tts_data.items[i];
+            const audio_name = data.audio_file_name.replace("/app/output/", "");
             tts[i] = {
               id:              data.tts_id,
               user_id:         data.user_id,
-              text:            data.text,
-              audio_file_name: data.audio_file_name,
+              text:            data.text.substring(0, 40),
+              audio_file_name: audio_name,
+              audio_file_url:  "http://localhost:80/output/" + audio_name,
             };
           }
 
