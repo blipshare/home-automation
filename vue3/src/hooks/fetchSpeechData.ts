@@ -53,10 +53,10 @@ export function fetchData() {
         }
     }
 
-  function get_tts_data() {
+  async function get_tts_data() {
     console.log("Getting all TTS Data");
     loading.value = true;
-    return fetch("http://localhost:80/data-service/tts/get_tts/offset/" + offset + "/limit/" + limit, {
+    return await fetch("http://localhost:80/data-service/tts/get_tts/offset/" + offset + "/limit/" + limit, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -65,7 +65,7 @@ export function fetchData() {
           "Content-Type, Authorization, X-Requested-With",
       },
     })
-      .then((res) => {
+      .then(res => {
         console.log("done pinging the server");
         console.log(res.status);
         if (!res.ok) {
