@@ -1,4 +1,5 @@
 import { onMounted, ref } from "vue";
+import { publisher } from "../createNotification";
 
 export function sendDataToServer() {
   const loading         = ref(false);
@@ -71,12 +72,15 @@ export function sendDataToServer() {
     });
   }
 
+  async function publishNotification(data_id: String) {
+  }
+
   async function saveData() {
     if (ttsFilePath.value.trim().length == 0) {
       error.value = "Error when sending data. Please try again!!!";
       return;
     }
-
+    
     error.value   = "";
     loading.value = true;
 
@@ -98,8 +102,24 @@ export function sendDataToServer() {
         console.log(res.statusText);
         throw error;
       }
-      res.json().then(() => {
+      res.json().then(async saved_data => {
         console.log("Saved data");
+        console.log(saved_data);
+  
+      // send the message to notification service to announce
+      await publisher()
+        .publish("TTS", saved_data["tts_id"], "1") 
+        .then(res => {
+          if (!res.ok) {
+            error.value = "Could not send notification";
+            throw error;
+          }
+          res.json().then(d => {
+            console.log(d)
+          }).then(() => {
+            loading.value = false;
+          });
+        })
         clearFields();
       });
     }).then(() => {

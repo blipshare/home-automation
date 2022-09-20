@@ -10,20 +10,27 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@rollup/plugin-inject": "^4.0.4",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.7",
+    "amqplib": "^0.10.3",
     "autoprefixer": "^10.4.8",
     "axios": "^0.27.2",
+    "buffer": "^6.0.3",
+    "events": "^3.3.0",
     "node-audiorecorder": "^3.0.0",
+    "process": "^0.11.10",
     "tailwindcss": "^3.1.8",
+    "util": "^0.12.4",
     "vue": "^3.2.38",
     "vue-axios": "^3.4.1",
     "vue-router": "^4.0.13"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
-    "@types/node": "^16.11.56",
+    "@types/amqplib": "^0.8.2",
+    "@types/node": "^16.11.58",
     "@vitejs/plugin-vue": "^3.0.3",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^11.0.0",

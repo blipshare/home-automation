@@ -4,7 +4,7 @@
       @click="open = true"
       class="ml-2 px-4 py-1 font-medium tracking-wide text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none"
     >
-      New
+      Announce
     </button>
 
     <div
@@ -24,7 +24,7 @@
         <div class="px-6 py-4 text-left modal-content">
           <!--Title-->
           <div class="flex items-center justify-between pb-3">
-            <p class="text-2xl font-bold">New Message</p>
+            <p class="text-2xl font-bold">New Announcement</p>
             <div class="z-50 cursor-pointer modal-close" @click="clearFields()">
               <svg
                 class="text-black fill-current"
