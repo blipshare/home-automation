@@ -146,7 +146,7 @@
                    >
                         <div class="text-sm font-medium leading-5 text-gray-900">
                           <button
-                            @click=""
+                            @click="resend(u.id);"
                             class="px-4 py-1 font-medium tracking-wide text-white bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none"
                           >
                             Resend
@@ -198,6 +198,7 @@
       incrOffset,
       decrOffset,
       updateLimit,
+      resend,
       setSearchString
   } = fetchData();
 

@@ -72,9 +72,6 @@ export function sendDataToServer() {
     });
   }
 
-  async function publishNotification(data_id: String) {
-  }
-
   async function saveData() {
     if (ttsFilePath.value.trim().length == 0) {
       error.value = "Error when sending data. Please try again!!!";

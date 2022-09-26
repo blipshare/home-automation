@@ -1,4 +1,5 @@
 import { ref, onMounted, computed } from "vue";
+import { publisher } from "../createNotification";
 
 export interface IPaginatedData {
   id:               string;
@@ -16,6 +17,22 @@ export function fetchData() {
   const error        = ref(null);
   const rowOptions   = [10, 20];
   const searchString = ref("");
+
+
+  async function resend(id: String) {
+    await publisher()
+      .publish("TTS", id, "1")
+      .then(res => {
+        if (!res.ok) {
+          throw error;
+        }
+        res.json().then(d => {
+          console.log(d)
+        }).then(() => {
+          loading.value = false;
+        });
+    })
+  }
 
   // used for searching and filtering
   const setSearchString = (event: Event) => {
@@ -115,6 +132,7 @@ export function fetchData() {
     incrOffset,
     decrOffset,
     updateLimit,
+    resend,
     setSearchString,
   };
 }
