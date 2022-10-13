@@ -32,7 +32,7 @@ export function fetchData() {
   function get_users() {
     console.log("Getting all users");
     loading.value = true;
-    return fetch("http://localhost:80/data-service/users/get_users/offset/0/limit/10", {
+    return fetch("http://ml-inference-1/data-service/users/get_users/offset/0/limit/10", {
       method: "GET",
       headers: {
         "content-type": "application/json",
