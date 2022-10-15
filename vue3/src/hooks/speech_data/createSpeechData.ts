@@ -43,7 +43,7 @@ export function sendDataToServer() {
     name.value    = "Test User"; // TODO: use the logged in user's name
     const data    = {"name": name.value, "text": text.value};
 
-    return await fetch("http://localhost:80/tts-service", {
+    return await fetch("http://ml-inference-1/tts-service", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -83,7 +83,7 @@ export function sendDataToServer() {
 
     const data    = {"user_id": userId.value, "text": text.value, "audio_file_name": ttsFilePath.value};
 
-    return await fetch("http://localhost:80/data-service/tts/create_tts", {
+    return await fetch("http://ml-inference-1/data-service/tts/create_tts", {
       method: "POST",
       headers: {
         "content-type": "application/json",

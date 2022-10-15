@@ -74,7 +74,7 @@ export function fetchData() {
   async function get_tts_data() {
     console.log("Getting all TTS Data");
     loading.value = true;
-    return await fetch("http://localhost:80/data-service/tts/get_tts/offset/" + offset + "/limit/" + limit, {
+    return await fetch("http://ml-inference-1/data-service/tts/get_tts/offset/" + offset + "/limit/" + limit, {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -102,7 +102,7 @@ export function fetchData() {
               user_id:         data.user_id,
               text:            data.text.substring(0, 40),
               audio_file_name: audio_name,
-              audio_file_url:  "http://localhost:80/output/" + audio_name,
+              audio_file_url:  "http://192.168.0.120:80/output/" + audio_name,
             };
           }
 

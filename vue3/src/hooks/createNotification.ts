@@ -15,7 +15,7 @@ export function publisher() {
     };
     processing.value = true;
 
-    return await fetch("http://localhost:80/message-publisher/announce", {
+    return await fetch("http://ml-inference-1/message-publisher/announce", {
       method: "POST",
       headers: {
         "content-type": "application/json",
