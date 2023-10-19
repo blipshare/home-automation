@@ -1,4 +1,4 @@
-FROM alpine:edge as builder
+FROM --platform=linux/arm64/v8 alpine:edge as builder
 
 ARG USERNAME=node
 ARG GROUP=node
@@ -13,6 +13,16 @@ WORKDIR /app
 RUN /bin/sh ./scripts/build_edge.sh && \
     chown -R $USERNAME /app
 
-# Set the default user.
+# Set the default user
 USER $USERNAME
+
+# use the nginx
+FROM --platform=linux/arm64/v8 nginx:alpine as webserver
+COPY .nginx/nginx-proxy.conf /etc/nginx/nginx.conf
+
+# remove the default nginx served static files
+RUN rm -rf /usr/share/nginx/html/*
+
+# copy the vue files to the html folder
+COPY --from=builder /app/vue3/dist /usr/share/nginx/html
 

@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import type { RouteRecordRaw } from "vue-router";
 
+import Landing from "./views/Landing.vue";
 import Login from "./views/Login.vue";
 import Home from "./views/Home.vue";
 import SpeechDataTable from "./views/SpeechDataTable.vue";
@@ -20,8 +21,8 @@ import SpeechDataTable from "./views/SpeechDataTable.vue";
 const routes: RouteRecordRaw[] = [
   {
     path: "/",
-    name: "Login",
-    component: Login,
+    name: "Landing",
+    component: Landing,
     meta: { layout: "empty" },
   },
   {

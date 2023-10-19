@@ -13,7 +13,7 @@ chmod -R 777 /root
 rm -rf /var/cache/apk/*
 
 # starting app build
-cd ../vue3
+cd ./vue3
 
 # delete previously built directory
 rm -rf ./dist
