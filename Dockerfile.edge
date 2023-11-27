@@ -1,28 +1,42 @@
-FROM --platform=linux/arm64/v8 alpine:edge as builder
+FROM --platform=linux/arm/v8 alpine:latest as builder
 
 ARG USERNAME=node
 ARG GROUP=node
 
+# update the system
+RUN apk update && \
+    apk add sudo sox npm nodejs
+
+# install required dependencies
 RUN addgroup -S $GROUP && \
     adduser -S $USERNAME -G $GROUP
 
 COPY . /app
 
-WORKDIR /app
+WORKDIR /app/vue3
 
-RUN /bin/sh ./scripts/build_edge.sh && \
+# clean the cache
+RUN rm -rf /var/cache/apk/* && \
+    rm -rf ./node_modules ./dist    
+
+# build the app
+RUN npm install && npm run build && \
     chown -R $USERNAME /app
 
 # Set the default user
 USER $USERNAME
 
 # use the nginx
-FROM --platform=linux/arm64/v8 nginx:alpine as webserver
-COPY .nginx/nginx-proxy.conf /etc/nginx/nginx.conf
+FROM --platform=linux/arm/v8 nginx:alpine as webserver
+COPY --from=builder /app/nginx/nginx-proxy.conf /etc/nginx/nginx.conf
+COPY --from=builder /app/certs /etc/nginx/certs
 
 # remove the default nginx served static files
 RUN rm -rf /usr/share/nginx/html/*
 
 # copy the vue files to the html folder
 COPY --from=builder /app/vue3/dist /usr/share/nginx/html
+COPY --from=builder /app/vue3/dist /etc/nginx/html
 
+# start the nginx daemon
+CMD ["nginx", "-g", "daemon off;"]

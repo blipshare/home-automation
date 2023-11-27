@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+  dashboard:
+    image: blipshare/robohome-dashboard:edge
+    build:
+      context: .
+      dockerfile: Dockerfile.edge
+    container_name: dashboard
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - 0.0.0.0:443:443
