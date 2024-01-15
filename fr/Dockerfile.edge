@@ -1,0 +1,30 @@
+FROM --platform=linux/arm64/v8 alpine:latest
+
+RUN apk update && apk add py3-pip jpeg-dev zlib-dev git make cmake g++ python3-dev apache-arrow-dev
+
+ENV LIBRARY_PATH=/lib:/usr/lib
+
+# Install dlib
+RUN cd ~ &&\
+    python -m venv env && \
+    . ./env/bin/activate && \
+    mkdir -p dlib && \
+    git clone -b 'v19.24.2' --single-branch https://github.com/davisking/dlib.git dlib/ && \
+    cd  dlib/ && \
+    python setup.py install
+
+# Install app
+COPY . /app
+
+WORKDIR /app
+
+RUN cd ~ && \
+    . ./env/bin/activate && \
+    pip install --upgrade pip && \
+    pip install -r /app/requirements.txt
+
+ENV PYTHONPATH=/app:$PYTHONPATH
+
+EXPOSE $PORT
+
+CMD ["/bin/sh", "-c", "./start_app.sh"]

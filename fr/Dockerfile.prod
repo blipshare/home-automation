@@ -1,0 +1,13 @@
+FROM blipshare/face_recognition:edge
+
+COPY ./app /app
+
+WORKDIR /app
+
+RUN pip3 install -r requirements.txt
+
+ENV PYTHONPATH=/app:$PYTHONPATH
+
+EXPOSE $PORT
+
+CMD ["/bin/sh", "-c", "./start_app.sh"]
