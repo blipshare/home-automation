@@ -7,7 +7,7 @@
 	// Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
 	"dockerFile": "Dockerfile.dev.edge",
 
-	"postCreateCommand": "npm install npm-run-all --save-dev",	
+	//"postCreateCommand": "npm install npm-run-all --save-dev",
 
 	"customizations": {
 		"vscode": {

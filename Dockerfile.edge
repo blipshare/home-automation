@@ -1,11 +1,11 @@
-FROM --platform=linux/arm/v8 alpine:latest as builder
+FROM --platform=linux/arm/v8 alpine:edge as builder
 
 ARG USERNAME=node
 ARG GROUP=node
 
 # update the system
 RUN apk update && \
-    apk add sudo sox npm nodejs
+    apk add sudo sox build-base npm nodejs
 
 # install required dependencies
 RUN addgroup -S $GROUP && \
@@ -16,11 +16,12 @@ COPY . /app
 WORKDIR /app/vue3
 
 # clean the cache
-RUN rm -rf /var/cache/apk/* && \
+RUN rm -rf node_modules && \
+    rm -rf /var/cache/apk/* && \
     rm -rf ./node_modules ./dist    
 
 # build the app
-RUN npm install && npm run build && \
+RUN npm ci && npm run build && \
     chown -R $USERNAME /app
 
 # Set the default user

@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   dashboard:
-    image: blipshare/robohome-dashboard:edge
+    image: blipshare/robohome-dashboard-test:edge
     build:
       context: .
       dockerfile: Dockerfile.edge
