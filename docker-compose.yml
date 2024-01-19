@@ -10,3 +10,23 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     ports:
       - 0.0.0.0:443:443
+    depends_on:
+      - weather-service
+    networks:
+      - robohome_net
+  weather-service:
+    image: blipshare/weather-service:edge
+    container_name: weather-service
+    environment:
+      - WORKERS=2
+      - HOST=0.0.0.0
+      - PORT=9500
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    ports:
+      - 0.0.0.0:9500:9500
+    networks:
+      - robohome_net
+networks:
+  robohome_net:
+    driver: bridge

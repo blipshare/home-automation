@@ -18,7 +18,7 @@ WORKDIR /app/vue3
 # clean the cache
 RUN rm -rf node_modules && \
     rm -rf /var/cache/apk/* && \
-    rm -rf ./node_modules ./dist    
+    rm -rf ./node_modules ./dist
 
 # build the app
 RUN npm install && npm run build-only && \

@@ -22,6 +22,8 @@ export function processWeather() {
         error.value = "Error getting hourly data..." + err.value;
         console.log(error.value);
       });
+
+    loading.value = false;
   }
 
   onMounted(() => {

@@ -9,11 +9,18 @@ export const useWeatherStore = defineStore("weather", {
   },
   actions: {
     async fetchHourlyData() {
-      const response = await fetch(
+      await fetch(
         "https://robohome/weather/api/forecast/?type=hourly&lat=39.5&lon=39.5"
-      );
-      const data = await response.json();
-      console.log(data);
+      )
+        .then(async (resp) => {
+          console.log(resp);
+          const data = await resp.json();
+          console.log(data);
+          this.hourlyData = data;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 });
