@@ -7,13 +7,16 @@
     "preview": "vite preview --port 4173",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
+    "lint": "eslint . --ext .vue,.js,.ts,.tsx --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@jridgewell/sourcemap-codec": "^1.4.15",
     "@rollup/plugin-inject": "^4.0.4",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.7",
+    "@types/react": "^18.2.48",
+    "@vue/typescript": "^1.8.20",
     "amqplib": "^0.10.3",
     "autoprefixer": "^10.4.8",
     "axios": "^1.6.5",

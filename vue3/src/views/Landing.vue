@@ -13,7 +13,7 @@
 </template>
 <script setup lang="ts">
 import FaceRecog from "@/components/FaceRecog.vue";
-import Weather from "./weather.vue";
+import Weather from "@/views/Weather.vue";
 
 // Looks for a local storage item and returns if present
 const getSelectedView = function () {
