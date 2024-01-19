@@ -21,8 +21,7 @@ RUN rm -rf node_modules && \
     rm -rf ./node_modules ./dist    
 
 # build the app
-RUN npm i npm-run-all -g && \
-    npm ci && npm run build && \
+RUN npm install && npm run build-only && \
     chown -R $USERNAME /app
 
 # Set the default user
