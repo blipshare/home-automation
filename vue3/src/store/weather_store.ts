@@ -15,11 +15,12 @@ export const useWeatherStore = defineStore("weather", {
         .then(async (resp) => {
           console.log(resp);
           const data = await resp.json();
-          console.log(data);
-          this.hourlyData = data;
+          console.log(data.data);
+          console.log("dict: " + data["data"]);
+          this.hourlyData = JSON.stringify(data.data);
         })
         .catch((err) => {
-          console.log(err);
+          throw err;
         });
     },
   },
