@@ -24,6 +24,7 @@ export interface HourlyData {
   isDayTime: boolean;
   precepProb: string;
   forecastType: ForecastType;
+  includeInMainView: boolean;
 }
 
 export function processWeather() {
@@ -32,10 +33,21 @@ export function processWeather() {
   const error = ref("");
   const metadata = ref<Metadata>();
   const hourlyData = ref<HourlyData[]>();
+  const currentTime = ref<Date>();
 
   function clearFields() {
     loading.value = false;
     error.value = "";
+  }
+
+  function splitTime(time: string) {
+    const regexp = /(\d:\d+)\s(AM|PM)/;
+    const data = time.match(regexp);
+    if (data != null && data.length == 3) {
+      return [data[1], data[2]];
+    }
+
+    return time;
   }
 
   async function parseData(data: string) {
@@ -51,12 +63,15 @@ export function processWeather() {
     const tempData = [];
     const periods = json["periods"];
     console.log(periods.length);
-    for (let idx = 0; idx < periods.length; idx++) {
+    for (let idx = 0; idx < 5; idx++) {
       const period = periods[idx];
-      console.log(period);
+      const startTime = new Date(period["startTime"]);
+      const shouldShowInMainView =
+        startTime.getTime() - currentTime.value!.getTime() > 0;
+
       if (period != null && period.length != 0) {
         tempData.push({
-          startTime: new Date(period["startTime"]).toLocaleDateString("en-US", {
+          startTime: startTime.toLocaleDateString("en-US", {
             hour: "2-digit",
             minute: "2-digit",
           }),
@@ -66,9 +81,10 @@ export function processWeather() {
           }),
           temp: period["temperature"],
           tempUnit: period["temperatureUnit"],
-          isDayTime: Boolean(period["isDayTime"]),
+          isDayTime: period["isDayTime"],
           precepProb: period["probabilityOfPrecipitation"]["value"] + "%",
           forecastType: ForecastType[period["shortForecast"]] as ForecastType,
+          includeinMainView: shouldShowInMainView,
         });
       }
     }
@@ -95,11 +111,17 @@ export function processWeather() {
   }
 
   onMounted(() => {
+    // fake the current time for now
+    currentTime.value = new Date("2024-01-07T03:00:00-05:00");
     getHourlyData();
   });
 
   return {
     loading,
     error,
+    metadata,
+    hourlyData,
+    ForecastType,
+    splitTime,
   };
 }
