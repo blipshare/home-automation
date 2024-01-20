@@ -7,7 +7,7 @@ export interface Metadata {
 }
 
 export interface HourlyData {
-  date: string;
+  endTime: string;
   temp: string;
   isDayTime: boolean;
   precepProb: string;
@@ -35,10 +35,16 @@ export function processWeather() {
     };
 
     // collect the detail info
-    const periods = await JSON.parse(json["periods"]);
+    console.log(json["periods"]);
+    /** 
+    const tempData = [];
     for (const period in periods) {
       console.log("period: " + period);
+      tempData.push({
+        endTime: new Date(period["endTime"]).toLocaleDateString('en-US',{ hour: '2-digit', minute: '2-digit' });
+      });
     }
+    **/
     //for (const period in json["periods"]) {
     //  const tempData = periods[period]
     //}
