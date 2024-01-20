@@ -31,6 +31,10 @@ export function processWeather() {
   }
 
   function isSunny(forecast: HourlyData) {
+    if (forecast.forecastType != null) {
+      console.log("tostring: " + forecast.forecastType.toString());
+      console.log("valueof: " + forecast.forecastType.valueOf());
+    }
     return (
       forecast.forecastType != null &&
       forecast.forecastType.toString() == ForecastType.MOSTLY_SUNNY.toString()
@@ -38,6 +42,10 @@ export function processWeather() {
   }
 
   function isPartlySunny(forecast: HourlyData) {
+    if (forecast.forecastType != null) {
+      console.log("tostring: " + forecast.forecastType.toString());
+      console.log("valueof: " + forecast.forecastType.valueOf());
+    }
     return (
       forecast.forecastType != null &&
       forecast.forecastType.toString() == ForecastType.PARTLY_SUNNY.toString()
@@ -45,6 +53,10 @@ export function processWeather() {
   }
 
   function isSomewhatCloudy(forecast: HourlyData) {
+    if (forecast.forecastType != null) {
+      console.log("tostring: " + forecast.forecastType.toString());
+      console.log("valueof: " + forecast.forecastType.valueOf());
+    }
     return (
       forecast.forecastType != null &&
       forecast.forecastType.toString() == ForecastType.MOSTLY_CLOUDY.toString()
