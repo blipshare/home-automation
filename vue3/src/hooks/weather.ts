@@ -1,6 +1,6 @@
 import { onMounted, ref, defineProps } from "vue";
 import { useWeatherStore } from "@/store/weather_store";
-import { ForecastType, type HourlyData } from "@/modal/weatherModal";
+import { ForecastType, type HourlyData } from "@/modal/weather_modal";
 
 export interface Metadata {
   location: string;
@@ -18,6 +18,11 @@ export function processWeather() {
   function clearFields() {
     loading.value = false;
     error.value = "";
+  }
+
+  function getForecastType(type: string) {
+    const key = Object.keys(ForecastType).find((key) => key.valueOf() === type);
+    return key != null ? key : ForecastType.UNDEFINED;
   }
 
   function isSunny(forecast: HourlyData) {
@@ -69,10 +74,7 @@ export function processWeather() {
       const startTime = new Date(period["startTime"]);
       const shouldShowInMainView =
         startTime.getTime() - currentTime.value!.getTime() > 0;
-      console.log("ForecastType: " + period["shortForecast"]);
-      const forecastType = ForecastType[
-        period["shortForecast"]
-      ] as ForecastType;
+
       if (period != null && period.length != 0) {
         tempData.push({
           startTime: startTime.toLocaleDateString("en-US", {
@@ -87,7 +89,7 @@ export function processWeather() {
           tempUnit: period["temperatureUnit"],
           isDayTime: period["isDayTime"],
           precepProb: period["probabilityOfPrecipitation"]["value"] + "%",
-          forecastType: forecastType,
+          forecastType: getForecastType(period["shortForecast"]),
           includeInMainView: shouldShowInMainView,
         });
       }
