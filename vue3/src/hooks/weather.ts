@@ -22,19 +22,19 @@ export function processWeather() {
 
   function isSunny(forecast: HourlyData) {
     return (
-      forecast.forecastType.valueOf() == ForecastType.MOSTLY_SUNNY.valueOf()
+      forecast.forecastType.toString() == ForecastType.MOSTLY_SUNNY.toString()
     );
   }
 
   function isPartlySunny(forecast: HourlyData) {
     return (
-      forecast.forecastType.valueOf() == ForecastType.PARTLY_SUNNY.valueOf()
+      forecast.forecastType.toString() == ForecastType.PARTLY_SUNNY.toString()
     );
   }
 
   function isSomewhatCloudy(forecast: HourlyData) {
     return (
-      forecast.forecastType.valueOf() == ForecastType.MOSTLY_CLOUDY.valueOf()
+      forecast.forecastType.toString() == ForecastType.MOSTLY_CLOUDY.toString()
     );
   }
 
