@@ -37,11 +37,11 @@
             >
               <SunnyWidget
                 :forecast="forecast"
-                v-if="forecast.forecastType == ForecastType.MOSTLY_SUNNY"
+                v-if="isSomewhatSunny(forecast)"
               />
               <CloudyWidget
                 :forecast="forecast"
-                v-if="forecast.forecastType == ForecastType.MOSTLY_CLOUDY"
+                v-if="isSomewhatCloudy(forecast)"
               />
               <CloudyNightWidget :forecast="forecast" v-else />
               <span class="mt-1 text-sm font-semibold">{{
@@ -282,6 +282,14 @@ import { processWeather } from "@/hooks/weather";
 import SunnyWidget from "@/views/widgets/weather/SunnyWidget.vue";
 import CloudyWidget from "@/views/widgets/weather/CloudyWidget.vue";
 import CloudyNightWidget from "@/views/widgets/weather/CloudyNightWidget.vue";
-const { loading, error, metadata, hourlyData, ForecastType, splitTime } =
-  processWeather();
+const {
+  loading,
+  error,
+  metadata,
+  hourlyData,
+  ForecastType,
+  splitTime,
+  isSomewhatSunny,
+  isSomewhatCloudy
+} = processWeather();
 </script>

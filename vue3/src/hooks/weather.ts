@@ -20,6 +20,17 @@ export function processWeather() {
     error.value = "";
   }
 
+  function isSomewhatSunny(forecast: HourlyData) {
+    return (
+      forecast.forecastType == ForecastType.MOSTLY_SUNNY ||
+      forecast.forecastType == ForecastType.PARTLY_SUNNY
+    );
+  }
+
+  function isSomewhatCloudy(forecast: HourlyData) {
+    return forecast.forecastType == ForecastType.MOSTLY_CLOUDY;
+  }
+
   function splitTime(time: string) {
     const regexp = /(\d:\d+)\s(AM|PM)/;
     const data = time.match(regexp);
@@ -42,13 +53,16 @@ export function processWeather() {
     // collect the detail info
     const tempData = [];
     const periods = json["periods"];
-    console.log(periods.length);
+
     for (let idx = 0; idx < 5; idx++) {
       const period = periods[idx];
       const startTime = new Date(period["startTime"]);
       const shouldShowInMainView =
         startTime.getTime() - currentTime.value!.getTime() > 0;
-
+      console.log("ForecastType: " + period["shortForecast"]);
+      const forecastType = ForecastType[
+        period["shortForecast"]
+      ] as ForecastType;
       if (period != null && period.length != 0) {
         tempData.push({
           startTime: startTime.toLocaleDateString("en-US", {
@@ -63,7 +77,7 @@ export function processWeather() {
           tempUnit: period["temperatureUnit"],
           isDayTime: period["isDayTime"],
           precepProb: period["probabilityOfPrecipitation"]["value"] + "%",
-          forecastType: ForecastType[period["shortForecast"]] as ForecastType,
+          forecastType: forecastType,
           includeInMainView: shouldShowInMainView,
         });
       }
@@ -107,5 +121,7 @@ export function processWeather() {
     hourlyData,
     ForecastType,
     splitTime,
+    isSomewhatSunny,
+    isSomewhatCloudy,
   };
 }
