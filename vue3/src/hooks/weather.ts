@@ -22,18 +22,21 @@ export function processWeather() {
 
   function isSunny(forecast: HourlyData) {
     return (
+      forecast.forecastType != null &&
       forecast.forecastType.toString() == ForecastType.MOSTLY_SUNNY.toString()
     );
   }
 
   function isPartlySunny(forecast: HourlyData) {
     return (
+      forecast.forecastType != null &&
       forecast.forecastType.toString() == ForecastType.PARTLY_SUNNY.toString()
     );
   }
 
   function isSomewhatCloudy(forecast: HourlyData) {
     return (
+      forecast.forecastType != null &&
       forecast.forecastType.toString() == ForecastType.MOSTLY_CLOUDY.toString()
     );
   }
