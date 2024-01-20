@@ -9,6 +9,8 @@ export interface Metadata {
 export interface HourlyData {
   date: string;
   temp: string;
+  isDayTime: boolean;
+  precepProb: string;
 }
 
 export function processWeather() {
@@ -33,8 +35,10 @@ export function processWeather() {
     };
 
     // collect the detail info
-    const periods = json["periods"];
-    console.log("periods: " + periods);
+    //const periods = json["periods"];
+    for (const period in json["periods"]) {
+      console.log("period: " + period);
+    }
   }
 
   async function getHourlyData() {

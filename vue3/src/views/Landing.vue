@@ -1,6 +1,6 @@
 <template>
-  <div class="flex items-center justify-center px-6">
-    <div class="w-full p-6 bg-white rounded-md shadow-md">
+  <div class="flex items-center justify-center">
+    <div class="w-full p-1 bg-white rounded-md shadow-md">
       <div class="flex items-center justify-center center">
         <span class="text-2xl font-semibold text-gray-700">
           Home Automation</span

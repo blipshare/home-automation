@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full justify-center mt-4">
+  <div class="flex w-full justify-center mt-2">
     <div id="item1" class="carousel-item w-full">
       <div
         class="items-left from-blu-200 flex grid min-h-screen w-screen grid-cols-2 flex-col justify-center gap-6 bg-gradient-to-br via-blue-200 to-indigo-200 p-10 py-1 text-gray-700"
