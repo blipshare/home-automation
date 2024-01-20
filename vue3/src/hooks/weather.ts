@@ -20,15 +20,22 @@ export function processWeather() {
     error.value = "";
   }
 
-  function isSomewhatSunny(forecast: HourlyData) {
+  function isSunny(forecast: HourlyData) {
     return (
-      forecast.forecastType == ForecastType.MOSTLY_SUNNY ||
-      forecast.forecastType == ForecastType.PARTLY_SUNNY
+      forecast.forecastType.valueOf() == ForecastType.MOSTLY_SUNNY.valueOf()
+    );
+  }
+
+  function isPartlySunny(forecast: HourlyData) {
+    return (
+      forecast.forecastType.valueOf() == ForecastType.PARTLY_SUNNY.valueOf()
     );
   }
 
   function isSomewhatCloudy(forecast: HourlyData) {
-    return forecast.forecastType == ForecastType.MOSTLY_CLOUDY;
+    return (
+      forecast.forecastType.valueOf() == ForecastType.MOSTLY_CLOUDY.valueOf()
+    );
   }
 
   function splitTime(time: string) {
@@ -121,7 +128,8 @@ export function processWeather() {
     hourlyData,
     ForecastType,
     splitTime,
-    isSomewhatSunny,
+    isSunny,
+    isPartlySunny,
     isSomewhatCloudy,
   };
 }

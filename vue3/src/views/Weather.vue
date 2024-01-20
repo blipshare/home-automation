@@ -35,9 +35,10 @@
               :value="forecast"
               class="flex flex-col items-center"
             >
-              <SunnyWidget
+              <SunnyWidget :forecast="forecast" v-if="isSunny(forecast)" />
+              <CloudySunnyWidget
                 :forecast="forecast"
-                v-if="isSomewhatSunny(forecast)"
+                v-if="isPartlySunny(forecast)"
               />
               <CloudyWidget
                 :forecast="forecast"
@@ -280,6 +281,7 @@
 <script setup lang="ts">
 import { processWeather } from "@/hooks/weather";
 import SunnyWidget from "@/views/widgets/weather/SunnyWidget.vue";
+import CloudySunnyWidget from "@/views/widgets/weather/CloudySunnyWidget.vue";
 import CloudyWidget from "@/views/widgets/weather/CloudyWidget.vue";
 import CloudyNightWidget from "@/views/widgets/weather/CloudyNightWidget.vue";
 const {
@@ -289,7 +291,8 @@ const {
   hourlyData,
   ForecastType,
   splitTime,
-  isSomewhatSunny,
-  isSomewhatCloudy
+  isSunny,
+  isPartlySunny,
+  isSomewhatCloudy,
 } = processWeather();
 </script>
