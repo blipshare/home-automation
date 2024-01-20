@@ -3,10 +3,10 @@ export enum ForecastType {
   MOSTLY_SUNNY = "Mostly Sunny",
   PARTLY_SUNNY = "Partly Sunny",
   MOSTLY_CLOUDY = "Mostly Cloudy",
-  SLIGHT_CHANCE_LIGHT_RAIN = <any>"Slight Chance Light Rain",
-  LIGHT_RAIN = <any>"Light Rain",
-  RAIN = <any>"Rain",
-  CHANCE_LIGHT_SNOW = <any>"Chance Light Snow",
+  SLIGHT_CHANCE_LIGHT_RAIN = "Slight Chance Light Rain",
+  LIGHT_RAIN = "Light Rain",
+  RAIN = "Rain",
+  CHANCE_LIGHT_SNOW = "Chance Light Snow",
 }
 
 export interface HourlyData {

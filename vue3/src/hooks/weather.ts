@@ -21,8 +21,13 @@ export function processWeather() {
   }
 
   function getForecastType(type: string) {
-    const key = Object.keys(ForecastType).find((key) => key.valueOf() === type);
-    return key != null ? key : ForecastType.UNDEFINED;
+    //const key =
+    //  Object.keys(ForecastType)[Object.values(ForecastType).indexOf(type)];
+    const idx = Object.values(ForecastType).findIndex((val) => val === type);
+    if (idx > 0) {
+      return Object.keys(ForecastType)[idx];
+    }
+    return ForecastType.UNDEFINED;
   }
 
   function isSunny(forecast: HourlyData) {
