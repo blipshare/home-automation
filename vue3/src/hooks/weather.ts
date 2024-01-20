@@ -1,6 +1,16 @@
 import { onMounted, ref } from "vue";
 import { useWeatherStore } from "@/store/weather_store";
 
+export enum ForecastType {
+  MOSTLY_SUNNY = "Mostly Sunny",
+  PARTLY_SUNNY = "Partly Sunny",
+  MOSTLY_CLOUDY = "Mostly Cloudy",
+  SLIGHT_CHANCE_LIGHT_RAIN = <any>"Slight Chance Light Rain",
+  LIGHT_RAIN = <any>"Light Rain",
+  RAIN = <any>"Rain",
+  CHANCE_LIGHT_SNOW = <any>"Chance Light Snow",
+}
+
 export interface Metadata {
   location: string;
   generatedOn: string;
@@ -12,6 +22,8 @@ export interface HourlyData {
   temp: string;
   tempUnit: string;
   isDayTime: boolean;
+  precepProb: string;
+  forecastType: ForecastType;
 }
 
 export function processWeather() {
@@ -19,7 +31,7 @@ export function processWeather() {
   const loading = ref(false);
   const error = ref("");
   const metadata = ref<Metadata>();
-  const hourlyData = ref<HourlyData[]>;
+  const hourlyData = ref<HourlyData[]>();
 
   function clearFields() {
     loading.value = false;
@@ -55,22 +67,15 @@ export function processWeather() {
           temp: period["temperature"],
           tempUnit: period["temperatureUnit"],
           isDayTime: Boolean(period["isDayTime"]),
+          precepProb: period["probabilityOfPrecipitation"]["value"] + "%",
+          forecastType: ForecastType[period["shortForecast"]] as ForecastType,
         });
       }
     }
     console.log("tempData");
     console.log(tempData);
-    /**
-    for (const period in periods) {
-      console.log("period: " + period);
-      tempData.push({
-        endTime: new Date(period["endTime"]).toLocaleDateString('en-US',{ hour: '2-digit', minute: '2-digit' });
-      });
-    }
-    **/
-    //for (const period in json["periods"]) {
-    //  const tempData = periods[period]
-    //}
+
+    hourlyData.value = ref<HourlyData[]>(tempData).value;
   }
 
   async function getHourlyData() {
