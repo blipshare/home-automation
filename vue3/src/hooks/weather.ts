@@ -1,4 +1,4 @@
-import { onMounted, ref } from "vue";
+import { onMounted, ref, defineProps } from "vue";
 import { useWeatherStore } from "@/store/weather_store";
 import { ForecastType, type HourlyData } from "@/modal/weatherModal";
 
@@ -97,7 +97,7 @@ export function processWeather() {
   });
 
   defineProps<{
-    hourlyData: HourlyData[];
+    forecast: HourlyData;
   }>();
 
   return {

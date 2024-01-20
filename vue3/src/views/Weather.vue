@@ -35,20 +35,15 @@
               :value="forecast"
               class="flex flex-col items-center"
             >
-              <span class="text-lg font-semibold"
-                >{{ forecast.temp }}°{{ forecast.tempUnit }}</span
-              >
               <SunnyWidget
-                :hourlyData="hourlyData"
-                :idx="idx"
+                :forecast="forecast"
                 v-if="forecast.forecastType == ForecastType.MOSTLY_SUNNY"
               />
               <CloudyWidget
-                :hourlyData="hourlyData"
-                :idx="idx"
+                :forecast="forecast"
                 v-if="forecast.forecastType == ForecastType.MOSTLY_CLOUDY"
               />
-              <CloudyNightWidget :hourlyData="hourlyData" :idx="idx" v-else />
+              <CloudyNightWidget :forecast="forecast" v-else />
               <span class="mt-1 text-sm font-semibold">{{
                 splitTime(forecast.startTime)[0]
               }}</span>

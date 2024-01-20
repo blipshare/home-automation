@@ -1,6 +1,6 @@
 <template>
   <span class="text-lg font-semibold"
-    >{{ hourlyData[idx].temp }}°{{ hourlyData[idx].tempUnit }}</span
+    >{{ forecast.temp }}°{{ forecast.tempUnit }}</span
   >
   <svg
     class="mt-3 h-10 w-10 fill-current text-gray-400"
@@ -27,6 +27,6 @@
 </template>
 <script>
 export default {
-  props: ["hourlyData", "idx"],
+  props: ["forecast"],
 };
 </script>
