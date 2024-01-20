@@ -35,10 +35,13 @@ export function processWeather() {
     };
 
     // collect the detail info
-    //const periods = json["periods"];
-    for (const period in json["periods"]) {
+    const periods = await JSON.parse(json["periods"]);
+    for (const period in periods) {
       console.log("period: " + period);
     }
+    //for (const period in json["periods"]) {
+    //  const tempData = periods[period]
+    //}
   }
 
   async function getHourlyData() {
