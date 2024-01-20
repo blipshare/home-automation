@@ -1,4 +1,7 @@
 <template>
+  <span class="text-lg font-semibold"
+    >{{ hourlyData[idx].temp }}°{{ hourlyData[idx].tempUnit }}</span
+  >
   <svg
     class="mt-3 h-10 w-10 fill-current text-gray-400"
     xmlns="http://www.w3.org/2000/svg"
@@ -12,3 +15,8 @@
     />
   </svg>
 </template>
+<script>
+export default {
+  props: ["hourlyData", "idx"],
+};
+</script>

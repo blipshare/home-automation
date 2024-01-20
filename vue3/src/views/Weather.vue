@@ -39,12 +39,16 @@
                 >{{ forecast.temp }}°{{ forecast.tempUnit }}</span
               >
               <SunnyWidget
+                :hourlyData="hourlyData"
+                :idx="idx"
                 v-if="forecast.forecastType == ForecastType.MOSTLY_SUNNY"
               />
               <CloudyWidget
+                :hourlyData="hourlyData"
+                :idx="idx"
                 v-if="forecast.forecastType == ForecastType.MOSTLY_CLOUDY"
               />
-              <CloudyNightWidget v-else />
+              <CloudyNightWidget :hourlyData="hourlyData" :idx="idx" v-else />
               <span class="mt-1 text-sm font-semibold">{{
                 splitTime(forecast.startTime)[0]
               }}</span>
@@ -280,9 +284,9 @@
 </template>
 <script setup lang="ts">
 import { processWeather } from "@/hooks/weather";
-import { SunnyWidget } from "@views/widgets/weather/SunnyWidget.vue";
-import { CloudyWidget } from "@views/widgets/weather/CloudyWidget.vue";
-import { CloudyNightWidget } from "@views/widgets/weather/CloudyNightWidget.vue";
+import SunnyWidget from "@/views/widgets/weather/SunnyWidget.vue";
+import CloudyWidget from "@/views/widgets/weather/CloudyWidget.vue";
+import CloudyNightWidget from "@/views/widgets/weather/CloudyNightWidget.vue";
 const { loading, error, metadata, hourlyData, ForecastType, splitTime } =
   processWeather();
 </script>

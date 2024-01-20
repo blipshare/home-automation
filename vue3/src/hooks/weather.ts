@@ -1,30 +1,10 @@
 import { onMounted, ref } from "vue";
 import { useWeatherStore } from "@/store/weather_store";
-
-export enum ForecastType {
-  MOSTLY_SUNNY = "Mostly Sunny",
-  PARTLY_SUNNY = "Partly Sunny",
-  MOSTLY_CLOUDY = "Mostly Cloudy",
-  SLIGHT_CHANCE_LIGHT_RAIN = <any>"Slight Chance Light Rain",
-  LIGHT_RAIN = <any>"Light Rain",
-  RAIN = <any>"Rain",
-  CHANCE_LIGHT_SNOW = <any>"Chance Light Snow",
-}
+import { ForecastType, type HourlyData } from "@/modal/weatherModal";
 
 export interface Metadata {
   location: string;
   generatedOn: string;
-}
-
-export interface HourlyData {
-  startTime: string;
-  endTime: string;
-  temp: string;
-  tempUnit: string;
-  isDayTime: boolean;
-  precepProb: string;
-  forecastType: ForecastType;
-  includeInMainView: boolean;
 }
 
 export function processWeather() {
@@ -84,7 +64,7 @@ export function processWeather() {
           isDayTime: period["isDayTime"],
           precepProb: period["probabilityOfPrecipitation"]["value"] + "%",
           forecastType: ForecastType[period["shortForecast"]] as ForecastType,
-          includeinMainView: shouldShowInMainView,
+          includeInMainView: shouldShowInMainView,
         });
       }
     }
@@ -115,6 +95,10 @@ export function processWeather() {
     currentTime.value = new Date("2024-01-07T03:00:00-05:00");
     getHourlyData();
   });
+
+  defineProps<{
+    hourlyData: HourlyData[];
+  }>();
 
   return {
     loading,
