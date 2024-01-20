@@ -13,10 +13,7 @@ export const useWeatherStore = defineStore("weather", {
         "https://robohome/weather/api/forecast/?type=hourly&lat=39.5&lon=39.5"
       )
         .then(async (resp) => {
-          console.log(resp);
           const data = await resp.json();
-          console.log(data.data);
-          console.log("dict: " + data["data"]);
           this.hourlyData = JSON.stringify(data.data);
         })
         .catch((err) => {
