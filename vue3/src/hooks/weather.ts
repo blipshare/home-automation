@@ -36,8 +36,11 @@ export function processWeather() {
     let isPredicted = false;
     if (forecast.forecastType != null) {
       const foundIt = Object.keys(ForecastType).filter(
-        (key) => key == predictedForecast && key == forecast.forecastType
+        (key) =>
+          key == predictedForecast &&
+          key.toString() === forecast.forecastType.toString()
       );
+      console.log("ispredicted: " + foundIt);
       isPredicted = foundIt.length > 0;
     }
     return isPredicted;
