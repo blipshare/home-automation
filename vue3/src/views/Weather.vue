@@ -35,14 +35,17 @@
               :value="forecast"
               class="flex flex-col items-center"
             >
-              <SunnyWidget :forecast="forecast" v-if="isSunny(forecast)" />
+              <SunnyWidget
+                :forecast="forecast"
+                v-if="isPredictedForecast(ForecastType.MOSTLY_SUNNY, forecast)"
+              />
               <CloudySunnyWidget
                 :forecast="forecast"
-                v-if="isPartlySunny(forecast)"
+                v-if="isPredictedForecast(ForecastType.PARTLY_SUNNY, forecast)"
               />
               <CloudyWidget
                 :forecast="forecast"
-                v-if="isSomewhatCloudy(forecast)"
+                v-if="isPredictedForecast(ForecastType.MOSTLY_CLOUDY, forecast)"
               />
               <CloudyNightWidget :forecast="forecast" v-else />
               <span class="mt-1 text-sm font-semibold">{{
@@ -240,15 +243,14 @@ import SunnyWidget from "@/views/widgets/weather/SunnyWidget.vue";
 import CloudySunnyWidget from "@/views/widgets/weather/CloudySunnyWidget.vue";
 import CloudyWidget from "@/views/widgets/weather/CloudyWidget.vue";
 import CloudyNightWidget from "@/views/widgets/weather/CloudyNightWidget.vue";
+import { ForecastType } from "@/modal/weather_modal";
+
 const {
   loading,
   error,
   metadata,
-  hourlyData,
-  ForecastType,
+  hourlyData,  
   splitTime,
-  isSunny,
-  isPartlySunny,
-  isSomewhatCloudy,
+  isPredictedForecast,
 } = processWeather();
 </script>

@@ -29,43 +29,22 @@ export function processWeather() {
     return foundVal;
   }
 
-  function isSunny(forecast: HourlyData) {
+  function isPredictedForecast(
+    predictedForecast: ForecastType,
+    forecast: HourlyData
+  ) {
+    let isPredicted = false;
     if (forecast.forecastType != null) {
-      console.log("tostring: " + forecast.forecastType.toString());
-      console.log("valueof: " + forecast.forecastType.valueOf());
+      const foundIt = Object.keys(ForecastType).filter(
+        (key) => key == predictedForecast && key == forecast.forecastType
+      );
+      isPredicted = foundIt.length > 0;
     }
-    return (
-      forecast.forecastType != null &&
-      forecast.forecastType.toString() === ForecastType.MOSTLY_SUNNY.toString()
-    );
-  }
-
-  function isPartlySunny(forecast: HourlyData) {
-    if (forecast.forecastType != null) {
-      console.log("tostring: " + forecast.forecastType.toString());
-      console.log("valueof: " + forecast.forecastType.valueOf());
-      console.log("toString(): " + ForecastType.PARTLY_SUNNY.toString());
-      console.log("just value: " + ForecastType.PARTLY_SUNNY);
-    }
-    return (
-      forecast.forecastType != null &&
-      forecast.forecastType.toString() === ForecastType.PARTLY_SUNNY.toString()
-    );
-  }
-
-  function isSomewhatCloudy(forecast: HourlyData) {
-    if (forecast.forecastType != null) {
-      console.log("tostring: " + forecast.forecastType.toString());
-      console.log("valueof: " + forecast.forecastType.valueOf());
-    }
-    return (
-      forecast.forecastType != null &&
-      forecast.forecastType.toString() === ForecastType.MOSTLY_CLOUDY.toString()
-    );
+    return isPredicted;
   }
 
   function splitTime(time: string) {
-    const regexp = /(\d:\d+)\s(AM|PM)/;
+    const regexp = /(\d+:\d+)\s(AM|PM)/;
     const data = time.match(regexp);
     if (data != null && data.length == 3) {
       return [data[1], data[2]];
@@ -149,10 +128,7 @@ export function processWeather() {
     error,
     metadata,
     hourlyData,
-    ForecastType,
     splitTime,
-    isSunny,
-    isPartlySunny,
-    isSomewhatCloudy,
+    isPredictedForecast,
   };
 }
