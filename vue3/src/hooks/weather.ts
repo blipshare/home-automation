@@ -44,6 +44,8 @@ export function processWeather() {
     if (forecast.forecastType != null) {
       console.log("tostring: " + forecast.forecastType.toString());
       console.log("valueof: " + forecast.forecastType.valueOf());
+      console.log("toString(): " + ForecastType.PARTLY_SUNNY.toString());
+      console.log("just value: " + ForecastType.PARTLY_SUNNY);
     }
     return (
       forecast.forecastType != null &&
