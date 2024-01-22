@@ -36,7 +36,7 @@ export function processWeather() {
     }
     return (
       forecast.forecastType != null &&
-      forecast.forecastType.toString() == ForecastType.MOSTLY_SUNNY.toString()
+      forecast.forecastType.toString() === ForecastType.MOSTLY_SUNNY.toString()
     );
   }
 
@@ -47,7 +47,7 @@ export function processWeather() {
     }
     return (
       forecast.forecastType != null &&
-      forecast.forecastType.toString() == ForecastType.PARTLY_SUNNY.toString()
+      forecast.forecastType.toString() === ForecastType.PARTLY_SUNNY.toString()
     );
   }
 
@@ -58,7 +58,7 @@ export function processWeather() {
     }
     return (
       forecast.forecastType != null &&
-      forecast.forecastType.toString() == ForecastType.MOSTLY_CLOUDY.toString()
+      forecast.forecastType.toString() === ForecastType.MOSTLY_CLOUDY.toString()
     );
   }
 
