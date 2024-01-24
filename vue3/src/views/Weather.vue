@@ -28,12 +28,12 @@
               />
             </svg>
           </div>
-          <div class="mt-12 flex justify-between">
+          <div class="mt-8 flex justify-between">
             <div
               v-for="(forecast, idx) in hourlyData"
               :key="idx"
               :value="forecast"
-              class="flex flex-col items-center mx-4"
+              :class="getCss(idx)"
             >
               <SunnyWidget
                 :forecast="forecast"
@@ -257,4 +257,12 @@ const {
   splitTime,
   isPredictedForecast,
 } = processWeather();
+
+function getCss(idx: number) {
+  let css = "flex flex-col items-center";
+  if (idx > 0) {
+    css = css + " mx-4";
+  }
+  return css;
+}
 </script>
