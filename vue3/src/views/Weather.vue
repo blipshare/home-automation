@@ -6,7 +6,7 @@
       >
         <!-- Component Start -->
         <div
-          class="mt-10 h-80 w-full max-w-screen-sm overflow-scroll rounded-xl bg-white p-10 py-10 ring-8 ring-white ring-opacity-40"
+          class="mt-10 h-80 w-full max-w-full overflow-scroll rounded-xl bg-white p-10 py-10 ring-8 ring-white ring-opacity-40"
         >
           <div class="flex justify-between">
             <div class="flex flex-col">
