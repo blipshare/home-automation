@@ -28,7 +28,7 @@
               />
             </svg>
           </div>
-          <div class="mt-12 flex justify-between">
+          <div class="mt-12 flex justify-between overflow-x-auto">
             <div
               v-for="(forecast, idx) in hourlyData"
               :key="idx"
