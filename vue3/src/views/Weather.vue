@@ -33,7 +33,7 @@
               v-for="(forecast, idx) in hourlyData"
               :key="idx"
               :value="forecast"
-              class="flex flex-col items-center gap-2"
+              class="flex flex-col items-center mx-4"
             >
               <SunnyWidget
                 :forecast="forecast"
