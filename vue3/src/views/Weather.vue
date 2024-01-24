@@ -2,7 +2,7 @@
   <div class="flex w-full justify-center mt-2">
     <div id="item1" class="carousel-item w-full">
       <div
-        class="items-left from-blu-200 flex grid min-h-screen w-screen grid-cols-2 flex-col justify-center gap-6 bg-gradient-to-br via-blue-200 to-indigo-200 p-10 py-1 text-gray-700"
+        class="items-left from-blue-200 flex grid min-h-screen w-screen grid-cols-1 flex-col justify-center gap-6 bg-gradient-to-br via-blue-200 to-indigo-200 p-10 py-1 text-gray-700"
       >
         <!-- Component Start -->
         <div
@@ -41,11 +41,15 @@
               />
               <CloudySunnyWidget
                 :forecast="forecast"
-                v-if="isPredictedForecast(ForecastType.PARTLY_SUNNY, forecast)"
+                v-else-if="
+                  isPredictedForecast(ForecastType.PARTLY_SUNNY, forecast)
+                "
               />
               <CloudyWidget
                 :forecast="forecast"
-                v-if="isPredictedForecast(ForecastType.MOSTLY_CLOUDY, forecast)"
+                v-else-if="
+                  isPredictedForecast(ForecastType.MOSTLY_CLOUDY, forecast)
+                "
               />
               <CloudyNightWidget :forecast="forecast" v-else />
               <span class="mt-1 text-sm font-semibold">{{
