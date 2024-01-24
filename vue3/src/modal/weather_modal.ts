@@ -7,6 +7,7 @@ export enum ForecastType {
   LIGHT_RAIN = "Light Rain",
   RAIN = "Rain",
   CHANCE_LIGHT_SNOW = "Chance Light Snow",
+  MOSTLY_CLEAR = "Mostly Clear"
 }
 
 export interface HourlyData {

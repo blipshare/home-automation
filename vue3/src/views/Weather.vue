@@ -51,6 +51,12 @@
                   isPredictedForecast(ForecastType.MOSTLY_CLOUDY, forecast)
                 "
               />
+              <ClearNightWidget
+                :forecast="forecast"
+                v-else-if="
+                  isPredictedForecast(ForecastType.MOSTLY_CLEAR, forecast)
+                "
+              />
               <CloudyNightWidget :forecast="forecast" v-else />
               <span class="mt-1 text-sm font-semibold">{{
                 splitTime(forecast.startTime)[0]
@@ -247,6 +253,7 @@ import SunnyWidget from "@/views/widgets/weather/SunnyWidget.vue";
 import CloudySunnyWidget from "@/views/widgets/weather/CloudySunnyWidget.vue";
 import CloudyWidget from "@/views/widgets/weather/CloudyWidget.vue";
 import CloudyNightWidget from "@/views/widgets/weather/CloudyNightWidget.vue";
+import { ClearNightWidget } from "@/views/widgets/weather/ClearNightWidget.vue";
 import { ForecastType } from "@/modal/weather_modal";
 
 const {
