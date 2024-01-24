@@ -6,7 +6,7 @@
       >
         <!-- Component Start -->
         <div
-          class="mt-10 h-80 w-full max-w-screen-sm rounded-xl bg-white p-10 py-10 ring-8 ring-white ring-opacity-40"
+          class="mt-10 h-80 w-full max-w-screen-sm overflow-x-auto rounded-xl bg-white p-10 py-10 ring-8 ring-white ring-opacity-40"
         >
           <div class="flex justify-between">
             <div class="flex flex-col">
@@ -28,7 +28,7 @@
               />
             </svg>
           </div>
-          <div class="mt-12 flex justify-between overflow-x-auto">
+          <div class="mt-12 flex justify-between">
             <div
               v-for="(forecast, idx) in hourlyData"
               :key="idx"
