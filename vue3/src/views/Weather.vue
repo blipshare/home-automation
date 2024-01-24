@@ -6,7 +6,7 @@
       >
         <!-- Component Start -->
         <div
-          class="mt-10 h-80 max-w-full overflow-x-auto overflow-y-scroll rounded-xl bg-white p-10 py-10 ring-8 ring-white ring-opacity-40"
+          class="mt-10 max-w-full max-h-full overflow-x-auto overflow-y-scroll rounded-xl bg-white p-10 py-10 ring-8 ring-white ring-opacity-40"
         >
           <div class="flex justify-between">
             <div class="flex flex-col">
@@ -253,7 +253,7 @@ import SunnyWidget from "@/views/widgets/weather/SunnyWidget.vue";
 import CloudySunnyWidget from "@/views/widgets/weather/CloudySunnyWidget.vue";
 import CloudyWidget from "@/views/widgets/weather/CloudyWidget.vue";
 import CloudyNightWidget from "@/views/widgets/weather/CloudyNightWidget.vue";
-import { ClearNightWidget } from "@/views/widgets/weather/ClearNightWidget.vue";
+import ClearNightWidget from "@/views/widgets/weather/ClearNightWidget.vue";
 import { ForecastType } from "@/modal/weather_modal";
 
 const {
