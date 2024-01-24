@@ -35,11 +35,12 @@ export function processWeather() {
   ) {
     let isPredicted = false;
     if (forecast.forecastType != null) {
-      const foundIt = Object.keys(ForecastType).filter(
-        (key) => key == predictedForecast
+      const foundIt = Object.values(ForecastType).filter(
+        (val) => val == predictedForecast
       );
-      console.log("forecast: " + forecast.forecastType + " tostring: " + forecast.forecastType.toString());
-      console.log("ispredicted: " + foundIt);
+      console.log("forecast: " + forecast.forecastType + " tostring: " + forecast.forecastType.toString() + " predicted: " + predictedForecast);
+      
+      console.log("foundit: " + foundIt);
       isPredicted = foundIt.length > 0;
     }
     return isPredicted;
