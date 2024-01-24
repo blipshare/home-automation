@@ -260,9 +260,12 @@ const {
 
 function getCss(idx: number) {
   let css = "flex flex-col items-center";
-  if (idx > 0) {
+  if (idx == 0) {
+    css = css + " mr-4";
+  } else {
     css = css + " mx-4";
   }
+
   return css;
 }
 </script>

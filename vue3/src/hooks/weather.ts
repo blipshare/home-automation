@@ -70,7 +70,7 @@ export function processWeather() {
     const tempData = [];
     const periods = json["periods"];
 
-    for (let idx = 0; idx < 10; idx++) {
+    for (let idx = 0; idx < 18; idx++) {
       const period = periods[idx];
       const startTime = new Date(period["startTime"]);
       const shouldShowInMainView =
