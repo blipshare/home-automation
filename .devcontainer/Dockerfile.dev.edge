@@ -5,7 +5,7 @@ ARG GROUP=node
 
 # update the system
 RUN apk update && \
-    apk add sudo sox npm nodejs
+    apk add sudo sox npm nodejs git
 
 RUN addgroup -S $GROUP && \
     adduser -S $USERNAME -G $GROUP
