@@ -7,12 +7,14 @@ export enum ForecastType {
   LIGHT_RAIN = "Light Rain",
   RAIN = "Rain",
   CHANCE_LIGHT_SNOW = "Chance Light Snow",
-  MOSTLY_CLEAR = "Mostly Clear"
+  MOSTLY_CLEAR = "Mostly Clear",
 }
 
 export interface HourlyData {
   startTime: string;
   endTime: string;
+  dateStr: string;
+  isToday: boolean;
   temp: string;
   tempUnit: string;
   isDayTime: boolean;

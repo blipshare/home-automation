@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full justify-center mt-2">
+  <div class="flex w-full justify-center mt-2 mb-2">
     <div id="item1" class="carousel-item w-full">
       <div
         class="items-left from-blue-200 flex grid min-h-screen w-screen grid-cols-1 flex-col justify-center gap-6 bg-gradient-to-br via-blue-200 to-indigo-200 p-10 py-1 text-gray-700"
@@ -66,12 +66,19 @@
               }}</span>
             </div>
           </div>
-        </div>         
+        </div>
         <div
           class="mt-10 flex h-80 w-full max-w-screen-sm flex-col space-y-6 rounded-xl bg-white p-10 ring-8 ring-white ring-opacity-40"
         >
-          <div class="flex items-center justify-between">
-            <span class="w-1/4 text-lg font-semibold">Fri, 22 Jan</span>
+          <div
+            class="flex items-center justify-between"
+            v-for="(forecast, idx) in hourlyData"
+            :key="idx"
+            :value="forecast"
+          >
+            <span class="w-1/4 text-lg font-semibold">{{
+              forecast.dateStr
+            }}</span>
             <div class="flex w-1/4 items-center justify-end pr-10">
               <span class="font-semibold">12%</span>
               <svg
@@ -104,6 +111,7 @@
               >18° / 32°</span
             >
           </div>
+          <!--
           <div class="flex items-center justify-between">
             <span class="w-1/4 text-lg font-semibold">Sat, 23 Jan</span>
             <div class="flex w-1/4 items-center justify-end pr-10">
@@ -240,6 +248,7 @@
               >20° / 29°</span
             >
           </div>
+          -->
         </div>
         <!-- Component End  -->
       </div>
@@ -255,14 +264,8 @@ import CloudyNightWidget from "@/views/widgets/weather/CloudyNightWidget.vue";
 import ClearNightWidget from "@/views/widgets/weather/ClearNightWidget.vue";
 import { ForecastType } from "@/modal/weather_modal";
 
-const {
-  loading,
-  error,
-  metadata,
-  hourlyData,  
-  splitTime,
-  isPredictedForecast,
-} = processWeather();
+const { loading, error, metadata, hourlyData, splitTime, isPredictedForecast } =
+  processWeather();
 
 function getCss(idx: number) {
   let css = "flex flex-col items-center";

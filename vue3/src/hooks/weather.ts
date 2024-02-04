@@ -7,6 +7,7 @@ export interface Metadata {
   generatedOn: string;
 }
 
+
 export function processWeather() {
   const store = useWeatherStore();
   const loading = ref(false);
@@ -57,6 +58,10 @@ export function processWeather() {
     return time;
   }
 
+  function getMinTemp(dateStr: string) {
+    
+  }
+
   async function parseData(data: string) {
     const json = await JSON.parse(data);
 
@@ -77,6 +82,10 @@ export function processWeather() {
         startTime.getTime() - currentTime.value!.getTime() > 0;
 
       if (period != null && period.length != 0) {
+        let isToday = false;
+        if (idx == 0) {
+          isToday = true;
+        }
         tempData.push({
           startTime: startTime.toLocaleDateString("en-US", {
             hour: "2-digit",
@@ -86,6 +95,12 @@ export function processWeather() {
             hour: "2-digit",
             minute: "2-digit",
           }),
+          dateStr: startTime.toLocaleDateString("en-US", {
+            weekday: "short",
+            day: "2-digit",
+            month: "short",
+          }),
+          isToday: isToday,
           temp: period["temperature"],
           tempUnit: period["temperatureUnit"],
           isDayTime: period["isDayTime"],
