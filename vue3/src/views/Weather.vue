@@ -66,8 +66,7 @@
               }}</span>
             </div>
           </div>
-        </div>
-        <!-- 
+        </div>         
         <div
           class="mt-10 flex h-80 w-full max-w-screen-sm flex-col space-y-6 rounded-xl bg-white p-10 ring-8 ring-white ring-opacity-40"
         >
@@ -241,7 +240,7 @@
               >20° / 29°</span
             >
           </div>
-        </div> -->
+        </div>
         <!-- Component End  -->
       </div>
     </div>
