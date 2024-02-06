@@ -14,11 +14,19 @@ export interface HourlyData {
   startTime: string;
   endTime: string;
   dateStr: string;
-  isToday: boolean;
-  temp: string;
+  temp: number;
   tempUnit: string;
   isDayTime: boolean;
   precepProb: string;
   forecastType: ForecastType;
   includeInMainView: boolean;
+}
+
+export interface DailyData {
+  date: string;
+  maxTemp: number;
+  minTemp: number;
+  tempUnit: string;
+  precepProb: string;
+  forecastType: ForecastType;
 }

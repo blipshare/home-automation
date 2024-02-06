@@ -1,12 +1,11 @@
 import { onMounted, ref, defineProps } from "vue";
 import { useWeatherStore } from "@/store/weather_store";
-import { ForecastType, type HourlyData } from "@/modal/weather_modal";
+import { ForecastType, type HourlyData, type DailyData } from "@/modal/weather_modal";
 
 export interface Metadata {
   location: string;
   generatedOn: string;
 }
-
 
 export function processWeather() {
   const store = useWeatherStore();
@@ -14,6 +13,7 @@ export function processWeather() {
   const error = ref("");
   const metadata = ref<Metadata>();
   const hourlyData = ref<HourlyData[]>();
+  const dailyData = ref<DailyData[]>();
   const currentTime = ref<Date>();
 
   function clearFields() {
@@ -58,8 +58,37 @@ export function processWeather() {
     return time;
   }
 
-  function getMinTemp(dateStr: string) {
-    
+  function populateDailyData(json: any) {
+    const tempData = [];
+    for (let idx = 18; idx < json.length - 18; idx += 18) {
+      const dailyData = json.slice(idx, idx + 18);
+      if (dailyData.length > 0) {
+        const startData = dailyData[0];
+        const endData = dailyData[dailyData.length - 1];
+        console.log("startData");
+        console.log(startData);
+        console.log("endData");
+        console.log(endData);
+        const startTime = new Date(startData["startTime"]);
+        const dateStr = startTime.toLocaleDateString("en-US", {
+          weekday: "short",
+          day: "2-digit",
+          month: "short",
+        });
+        tempData.push({
+          date: dateStr,
+          maxTemp: Number(startData["temp"]),
+          minTemp: Number(endData["temp"]),
+          tempUnit: startData["temperatureUnit"],
+          precepProb: startData["probabilityOfPrecipitation"]["value"] + "%",
+          forecastType: getForecastType(startData["shortForecast"]),
+        });
+      }
+    }
+    console.log("dailyData");
+    console.log(tempData);
+
+    dailyData.value = ref<DailyData[]>(tempData).value;
   }
 
   async function parseData(data: string) {
@@ -78,14 +107,15 @@ export function processWeather() {
     for (let idx = 0; idx < 18; idx++) {
       const period = periods[idx];
       const startTime = new Date(period["startTime"]);
+      const dateStr = startTime.toLocaleDateString("en-US", {
+        weekday: "short",
+        day: "2-digit",
+        month: "short",
+      });
       const shouldShowInMainView =
         startTime.getTime() - currentTime.value!.getTime() > 0;
 
       if (period != null && period.length != 0) {
-        let isToday = false;
-        if (idx == 0) {
-          isToday = true;
-        }
         tempData.push({
           startTime: startTime.toLocaleDateString("en-US", {
             hour: "2-digit",
@@ -95,13 +125,8 @@ export function processWeather() {
             hour: "2-digit",
             minute: "2-digit",
           }),
-          dateStr: startTime.toLocaleDateString("en-US", {
-            weekday: "short",
-            day: "2-digit",
-            month: "short",
-          }),
-          isToday: isToday,
-          temp: period["temperature"],
+          dateStr: dateStr,
+          temp: Number(period["temperature"]),
           tempUnit: period["temperatureUnit"],
           isDayTime: period["isDayTime"],
           precepProb: period["probabilityOfPrecipitation"]["value"] + "%",
@@ -110,10 +135,14 @@ export function processWeather() {
         });
       }
     }
-    console.log("tempData");
-    console.log(tempData);
+    //console.log("tempData");
+    //console.log(tempData);
 
+    // save the hourly data
     hourlyData.value = ref<HourlyData[]>(tempData).value;
+
+    // populate daily data
+    populateDailyData(periods);
   }
 
   async function getHourlyData() {
