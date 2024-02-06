@@ -72,13 +72,11 @@
         >
           <div
             class="flex items-center justify-between"
-            v-for="(forecast, idx) in hourlyData"
+            v-for="(forecast, idx) in dailyData"
             :key="idx"
             :value="forecast"
           >
-            <span class="w-1/4 text-lg font-semibold">{{
-              forecast.dateStr
-            }}</span>
+            <span class="w-1/4 text-lg font-semibold">{{ forecast.date }}</span>
             <div class="flex w-1/4 items-center justify-end pr-10">
               <span class="font-semibold">12%</span>
               <svg
@@ -108,7 +106,7 @@
               />
             </svg>
             <span class="w-1/4 text-right text-lg font-semibold"
-              >18° / 32°</span
+              >{{ forecast.minTemp }}° / {{ forecast.maxTemp }}°</span
             >
           </div>
           <!--
@@ -264,8 +262,15 @@ import CloudyNightWidget from "@/views/widgets/weather/CloudyNightWidget.vue";
 import ClearNightWidget from "@/views/widgets/weather/ClearNightWidget.vue";
 import { ForecastType } from "@/modal/weather_modal";
 
-const { loading, error, metadata, hourlyData, splitTime, isPredictedForecast } =
-  processWeather();
+const {
+  loading,
+  error,
+  metadata,
+  hourlyData,
+  dailyData,
+  splitTime,
+  isPredictedForecast,
+} = processWeather();
 
 function getCss(idx: number) {
   let css = "flex flex-col items-center";
