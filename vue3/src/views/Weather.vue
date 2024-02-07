@@ -128,6 +128,10 @@
                 isPredictedForecast(
                   ForecastType.PARTLY_SUNNY,
                   forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.PARTLY_CLOUDY,
+                  forecast.forecastType
                 )
               "
             />

@@ -13,21 +13,21 @@
     <path
       d="M10.51 20.345L12.01 17.745"
       stroke="#0F0F0F"
-      stroke-miterlimit="10"
+      stroke-miterlimit="20"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
       d="M14.51 20.345L16.01 17.745"
       stroke="#0F0F0F"
-      stroke-miterlimit="10"
+      stroke-miterlimit="20"
       stroke-linecap="round"
       stroke-linejoin="round"
     />
     <path
       d="M6.51001 20.345L8.01001 17.745"
       stroke="#0F0F0F"
-      stroke-miterlimit="10"
+      stroke-miterlimit="20"
       stroke-linecap="round"
       stroke-linejoin="round"
     />

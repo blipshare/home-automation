@@ -2,6 +2,7 @@ export enum ForecastType {
   UNDEFINED = "undefined",
   MOSTLY_SUNNY = "Mostly Sunny",
   PARTLY_SUNNY = "Partly Sunny",
+  PARTLY_CLOUDY = "Partly Cloudy",
   MOSTLY_CLOUDY = "Mostly Cloudy",
   SLIGHT_CHANCE_LIGHT_RAIN = "Slight Chance Light Rain",
   LIGHT_RAIN = "Light Rain",
