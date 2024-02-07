@@ -1,6 +1,10 @@
 import { onMounted, ref, defineProps } from "vue";
 import { useWeatherStore } from "@/store/weather_store";
-import { ForecastType, type HourlyData, type DailyData } from "@/modal/weather_modal";
+import {
+  ForecastType,
+  type HourlyData,
+  type DailyData,
+} from "@/modal/weather_modal";
 
 export interface Metadata {
   location: string;
@@ -32,18 +36,17 @@ export function processWeather() {
 
   function isPredictedForecast(
     predictedForecast: ForecastType,
-    forecast: HourlyData
+    forecastType: ForecastType
   ) {
     let isPredicted = false;
-    if (forecast.forecastType != null) {
+    if (forecastType != null) {
       const foundIt = Object.values(ForecastType).findIndex(
         (val) => val == predictedForecast
       );
 
       console.log("foundit: " + foundIt);
       isPredicted =
-        foundIt >= 0 &&
-        Object.keys(ForecastType)[foundIt] == forecast.forecastType;
+        foundIt >= 0 && Object.keys(ForecastType)[foundIt] == forecastType;
     }
     return isPredicted;
   }

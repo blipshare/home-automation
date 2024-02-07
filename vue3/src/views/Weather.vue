@@ -35,26 +35,44 @@
               :value="forecast"
               :class="getCss(idx)"
             >
-              <SunnyWidget
-                :forecast="forecast"
-                v-if="isPredictedForecast(ForecastType.MOSTLY_SUNNY, forecast)"
-              />
+              <div
+                v-if="
+                  isPredictedForecast(
+                    ForecastType.MOSTLY_SUNNY,
+                    forecast.forecastType
+                  )
+                "
+              >
+                <span class="text-lg font-semibold"
+                  >{{ forecast.temp }}°{{ forecast.tempUnit }}</span
+                >
+                <SunnyWidget />
+              </div>
               <CloudySunnyWidget
                 :forecast="forecast"
                 v-else-if="
-                  isPredictedForecast(ForecastType.PARTLY_SUNNY, forecast)
+                  isPredictedForecast(
+                    ForecastType.PARTLY_SUNNY,
+                    forecast.forecastType
+                  )
                 "
               />
               <CloudyWidget
                 :forecast="forecast"
                 v-else-if="
-                  isPredictedForecast(ForecastType.MOSTLY_CLOUDY, forecast)
+                  isPredictedForecast(
+                    ForecastType.MOSTLY_CLOUDY,
+                    forecast.forecastType
+                  )
                 "
               />
               <ClearNightWidget
                 :forecast="forecast"
                 v-else-if="
-                  isPredictedForecast(ForecastType.MOSTLY_CLEAR, forecast)
+                  isPredictedForecast(
+                    ForecastType.MOSTLY_CLEAR,
+                    forecast.forecastType
+                  )
                 "
               />
               <CloudyNightWidget :forecast="forecast" v-else />
@@ -78,7 +96,7 @@
           >
             <span class="w-1/4 text-lg font-semibold">{{ forecast.date }}</span>
             <div class="flex w-1/4 items-center justify-end pr-10">
-              <span class="font-semibold">12%</span>
+              <span class="font-semibold">{{ forecast.precepProb }}%</span>
               <svg
                 class="ml-1 h-6 w-6 fill-current"
                 viewBox="0 0 16 20"
@@ -93,18 +111,30 @@
                 </g>
               </svg>
             </div>
-            <svg
-              class="h-8 w-1/4 w-8 fill-current"
-              xmlns="http://www.w3.org/2000/svg"
-              height="24"
-              viewBox="0 0 24 24"
-              width="24"
-            >
-              <path d="M0 0h24v24H0V0z" fill="none" />
-              <path
-                d="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79zM1 10.5h3v2H1zM11 .55h2V3.5h-2zm8.04 2.495l1.408 1.407-1.79 1.79-1.407-1.408zm-1.8 15.115l1.79 1.8 1.41-1.41-1.8-1.79zM20 10.5h3v2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm-1 4h2v2.95h-2zm-7.45-.96l1.41 1.41 1.79-1.8-1.41-1.41z"
-              />
-            </svg>
+            <SunnyWidget
+              v-if="
+                isPredictedForecast(
+                  ForecastType.MOSTLY_SUNNY,
+                  forecast.forecastType
+                )
+              "
+            />
+            <CloudySunnyWidget
+              v-if="
+                isPredictedForecast(
+                  ForecastType.PARTLY_SUNNY,
+                  forecast.forecastType
+                )
+              "
+            />
+            <CloudyWidget
+              v-if="
+                isPredictedForecast(
+                  ForecastType.MOSTLY_CLOUDY,
+                  forecast.forecastType
+                )
+              "
+            />
             <span class="w-1/4 text-right text-lg font-semibold"
               >{{ forecast.minTemp }}° / {{ forecast.maxTemp }}°</span
             >
