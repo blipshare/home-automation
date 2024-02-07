@@ -63,8 +63,8 @@ export function processWeather() {
 
   function populateDailyData(json: any) {
     const tempData = [];
-    for (let idx = 17; idx < json.length - 18; idx += 18) {
-      const dailyData = json.slice(idx, idx + 18);
+    for (let idx = 18; idx < json.length - 24; idx += 24) {
+      const dailyData = json.slice(idx, idx + 24);
       if (dailyData.length > 0) {
         const startData = dailyData[0];
         const endData = dailyData[dailyData.length - 1];
