@@ -116,6 +116,10 @@
                 isPredictedForecast(
                   ForecastType.MOSTLY_SUNNY,
                   forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.MOSTLY_CLEAR,
+                  forecast.forecastType
                 )
               "
             />

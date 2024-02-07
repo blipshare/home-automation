@@ -17,7 +17,7 @@ export interface HourlyData {
   temp: number;
   tempUnit: string;
   isDayTime: boolean;
-  precepProb: string;
+  precepProb: number;
   forecastType: ForecastType;
   includeInMainView: boolean;
 }
@@ -27,6 +27,6 @@ export interface DailyData {
   maxTemp: number;
   minTemp: number;
   tempUnit: string;
-  precepProb: string;
+  precepProb: number;
   forecastType: ForecastType;
 }

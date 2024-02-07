@@ -63,7 +63,7 @@ export function processWeather() {
 
   function populateDailyData(json: any) {
     const tempData = [];
-    for (let idx = 19; idx < json.length - 18; idx += 18) {
+    for (let idx = 17; idx < json.length - 18; idx += 18) {
       const dailyData = json.slice(idx, idx + 18);
       if (dailyData.length > 0) {
         const startData = dailyData[0];
@@ -83,7 +83,7 @@ export function processWeather() {
           maxTemp: Number(startData["temperature"]),
           minTemp: Number(endData["temperature"]),
           tempUnit: startData["temperatureUnit"],
-          precepProb: startData["probabilityOfPrecipitation"]["value"] + "%",
+          precepProb: Number(startData["probabilityOfPrecipitation"]["value"]),
           forecastType: getForecastType(startData["shortForecast"]),
         });
       }
@@ -132,7 +132,7 @@ export function processWeather() {
           temp: Number(period["temperature"]),
           tempUnit: period["temperatureUnit"],
           isDayTime: period["isDayTime"],
-          precepProb: period["probabilityOfPrecipitation"]["value"] + "%",
+          precepProb: Number(period["probabilityOfPrecipitation"]["value"]),
           forecastType: getForecastType(period["shortForecast"]),
           includeInMainView: shouldShowInMainView,
         });
