@@ -70,11 +70,14 @@ export function processWeather() {
       console.log("dateStr: " + date);
       console.log("filteredData");
       console.log(filteredData);
-      const minTemp = filteredData.reduce((a, b) => Math.min(a, b.temp), 0);
+      const minTemp = filteredData.reduce(
+        (a, b) => Math.min(a, b.temp),
+        Infinity
+      );
       const maxTemp = filteredData.reduce((a, b) => Math.max(a, b.temp), 0);
       const maxPrec = filteredData.reduce(
         (a, b) => Math.max(a, b.precepProb),
-        0
+        Infinity
       );
       console.log(minTemp);
       console.log(maxTemp);
@@ -86,6 +89,11 @@ export function processWeather() {
         maxPrec: maxPrec,
       };
     }
+    return {
+      minTemp: -1,
+      maxTemp: -1,
+      maxPrec: -1,
+    };
   }
 
   function populateDailyData(json: any) {
@@ -99,21 +107,19 @@ export function processWeather() {
         console.log(startData);
         console.log("endData");
         console.log(endData);
-        const startTime = new Date(startData["startTime"]);
-        const dateStr = startTime.toLocaleDateString("en-US", {
+        const endTime = new Date(endData["endTime"]);
+        const dateStr = endTime.toLocaleDateString("en-US", {
           weekday: "short",
           day: "2-digit",
           month: "short",
         });
         const maxMinData = findMaxMin(dateStr);
-        console.log("maxMin");
-        console.log(maxMinData);
         tempData.push({
           date: dateStr,
-          maxTemp: Number(startData["temperature"]),
-          minTemp: Number(endData["temperature"]),
+          maxTemp: maxMinData["maxTemp"],
+          minTemp: maxMinData["minTemp"],
           tempUnit: startData["temperatureUnit"],
-          precepProb: Number(startData["probabilityOfPrecipitation"]["value"]),
+          precepProb: maxMinData["maxPrec"],
           forecastType: getForecastType(startData["shortForecast"]),
         });
       }
