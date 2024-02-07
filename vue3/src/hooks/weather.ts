@@ -61,9 +61,31 @@ export function processWeather() {
     return time;
   }
 
+  function findMaxMin(date: string) {
+    const filteredData = hourlyData.value?.filter(
+      (data) => data.dateStr == date
+    );
+
+    if (filteredData != null) {
+      const minTemp = filteredData.reduce(
+        (a, b) => Math.min(a.temp, b.temp),
+        0
+      );
+      const maxTemp = filteredData.reduce(
+        (a, b) => Math.max(a.temp, b.temp),
+        0
+      );
+
+      return {
+        "minTemp": minTemp,
+        "maxTemp": maxTemp
+      };
+    }
+  }
+
   function populateDailyData(json: any) {
     const tempData = [];
-    for (let idx = 18; idx < json.length - 24; idx += 24) {
+    for (let idx = 17; idx < json.length - 24; idx += 24) {
       const dailyData = json.slice(idx, idx + 24);
       if (dailyData.length > 0) {
         const startData = dailyData[0];
@@ -78,6 +100,9 @@ export function processWeather() {
           day: "2-digit",
           month: "short",
         });
+        const maxMinData = findMaxMin(dateStr);
+        console.log("maxMin");
+        console.log(maxMinData);
         tempData.push({
           date: dateStr,
           maxTemp: Number(startData["temperature"]),

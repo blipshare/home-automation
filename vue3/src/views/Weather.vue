@@ -35,21 +35,18 @@
               :value="forecast"
               :class="getCss(idx)"
             >
-              <div
+              <span class="text-lg font-semibold"
+                >{{ forecast.temp }}°{{ forecast.tempUnit }}</span
+              >
+              <SunnyWidget
                 v-if="
                   isPredictedForecast(
                     ForecastType.MOSTLY_SUNNY,
                     forecast.forecastType
                   )
                 "
-              >
-                <span class="text-lg font-semibold"
-                  >{{ forecast.temp }}°{{ forecast.tempUnit }}</span
-                >
-                <SunnyWidget />
-              </div>
+              />
               <CloudySunnyWidget
-                :forecast="forecast"
                 v-else-if="
                   isPredictedForecast(
                     ForecastType.PARTLY_SUNNY,
@@ -58,7 +55,6 @@
                 "
               />
               <CloudyWidget
-                :forecast="forecast"
                 v-else-if="
                   isPredictedForecast(
                     ForecastType.MOSTLY_CLOUDY,
@@ -67,7 +63,6 @@
                 "
               />
               <ClearNightWidget
-                :forecast="forecast"
                 v-else-if="
                   isPredictedForecast(
                     ForecastType.MOSTLY_CLEAR,
@@ -75,7 +70,7 @@
                   )
                 "
               />
-              <CloudyNightWidget :forecast="forecast" v-else />
+              <CloudyNightWidget v-else />
               <span class="mt-1 text-sm font-semibold">{{
                 splitTime(forecast.startTime)[0]
               }}</span>
@@ -124,7 +119,7 @@
               "
             />
             <CloudySunnyWidget
-              v-if="
+              v-else-if="
                 isPredictedForecast(
                   ForecastType.PARTLY_SUNNY,
                   forecast.forecastType
@@ -132,7 +127,7 @@
               "
             />
             <CloudyWidget
-              v-if="
+              v-else-if="
                 isPredictedForecast(
                   ForecastType.MOSTLY_CLOUDY,
                   forecast.forecastType

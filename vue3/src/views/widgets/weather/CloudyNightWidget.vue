@@ -1,7 +1,4 @@
 <template>
-  <span class="text-lg font-semibold"
-    >{{ forecast.temp }}°{{ forecast.tempUnit }}</span
-  >
   <svg
     class="mt-3 h-10 w-10 fill-current text-gray-400"
     xmlns="http://www.w3.org/2000/svg"
@@ -25,8 +22,4 @@
     </g>
   </svg>
 </template>
-<script>
-export default {
-  props: ["forecast"],
-};
-</script>
+<script setup lang="ts"></script>
