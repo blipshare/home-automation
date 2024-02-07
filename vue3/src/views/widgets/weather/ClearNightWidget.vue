@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="mt-3 h-10 w-10 fill-current text-gray-400"
+    class="mt-1 h-10 w-10 fill-current text-gray-400"
     xmlns="http://www.w3.org/2000/svg"
     enable-background="new 0 0 24 24"
     height="24"

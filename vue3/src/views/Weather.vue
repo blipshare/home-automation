@@ -6,7 +6,7 @@
       >
         <!-- Component Start -->
         <div
-          class="mt-10 max-w-full max-h-full overflow-x-auto overflow-y-scroll rounded-xl bg-white p-10 py-10 ring-8 ring-white ring-opacity-40"
+          class="mt-10 max-w-full max-h-full rounded-xl bg-white p-10 py-10 ring-8 ring-white ring-opacity-40"
         >
           <div class="flex justify-between">
             <div class="flex flex-col">
@@ -28,15 +28,20 @@
               />
             </svg>
           </div>
-          <div class="mt-8 flex justify-between" v-if="hourlyData != null">
+          <div
+            class="mt-8 flex justify-between overflow-x-auto overflow-y-scroll"
+            v-if="hourlyData != null"
+          >
             <div
               v-for="idx in 18"
               :key="idx"
-              :value="hourlyData[idx]"
-              :class="getCss(idx)"
+              :value="hourlyData[idx - 1]"
+              :class="getCss(idx - 1)"
             >
               <span class="text-lg font-semibold"
-                >{{ hourlyData[idx].temp }}°{{ hourlyData[idx].tempUnit }}</span
+                >{{ hourlyData[idx - 1].temp }}°{{
+                  hourlyData[idx - 1].tempUnit
+                }}</span
               >
               <SunnyWidget
                 v-if="
@@ -50,7 +55,7 @@
                 v-else-if="
                   isPredictedForecast(
                     ForecastType.PARTLY_SUNNY,
-                    hourlyData[idx].forecastType
+                    hourlyData[idx - 1].forecastType
                   )
                 "
               />
@@ -58,7 +63,7 @@
                 v-else-if="
                   isPredictedForecast(
                     ForecastType.MOSTLY_CLOUDY,
-                    hourlyData[idx].forecastType
+                    hourlyData[idx - 1].forecastType
                   )
                 "
               />
@@ -66,22 +71,22 @@
                 v-else-if="
                   isPredictedForecast(
                     ForecastType.MOSTLY_CLEAR,
-                    hourlyData[idx].forecastType
+                    hourlyData[idx - 1].forecastType
                   )
                 "
               />
               <CloudyNightWidget v-else />
               <span class="mt-1 text-sm font-semibold">{{
-                splitTime(hourlyData[idx].startTime)[0]
+                splitTime(hourlyData[idx - 1].startTime)[0]
               }}</span>
               <span class="text-xs font-semibold text-gray-400">{{
-                splitTime(hourlyData[idx].startTime)[1]
+                splitTime(hourlyData[idx - 1].startTime)[1]
               }}</span>
             </div>
           </div>
         </div>
         <div
-          class="mt-10 flex h-80 w-full max-w-screen-sm flex-col space-y-6 rounded-xl bg-white p-10 ring-8 ring-white ring-opacity-40"
+          class="mt-5 flex h-80 w-full max-w-screen-sm flex-col space-y-6 rounded-xl bg-white p-10 ring-8 ring-white ring-opacity-40"
         >
           <div
             class="flex items-center justify-between"
