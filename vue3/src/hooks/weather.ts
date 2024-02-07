@@ -67,20 +67,23 @@ export function processWeather() {
     );
 
     if (filteredData != null) {
+      console.log("dateStr: " + date);
       console.log("filteredData");
       console.log(filteredData);
-      const minTemp = filteredData.reduce(
-        (a, b) => Math.min(a.temp, b.temp),
+      const minTemp = filteredData.reduce((a, b) => Math.min(a, b.temp), 0);
+      const maxTemp = filteredData.reduce((a, b) => Math.max(a, b.temp), 0);
+      const maxPrec = filteredData.reduce(
+        (a, b) => Math.max(a, b.precepProb),
         0
       );
-      const maxTemp = filteredData.reduce(
-        (a, b) => Math.max(a.temp, b.temp),
-        0
-      );
+      console.log(minTemp);
+      console.log(maxTemp);
+      console.log(maxPrec);
 
       return {
-        "minTemp": minTemp,
-        "maxTemp": maxTemp
+        minTemp: minTemp,
+        maxTemp: maxTemp,
+        maxPrec: maxPrec,
       };
     }
   }
