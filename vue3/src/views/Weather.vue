@@ -28,21 +28,21 @@
               />
             </svg>
           </div>
-          <div class="mt-8 flex justify-between">
+          <div class="mt-8 flex justify-between" v-if="hourlyData != null">
             <div
-              v-for="(forecast, idx) in hourlyData"
+              v-for="idx in 18"
               :key="idx"
-              :value="forecast"
+              :value="hourlyData[idx]"
               :class="getCss(idx)"
             >
               <span class="text-lg font-semibold"
-                >{{ forecast.temp }}°{{ forecast.tempUnit }}</span
+                >{{ hourlyData[idx].temp }}°{{ hourlyData[idx].tempUnit }}</span
               >
               <SunnyWidget
                 v-if="
                   isPredictedForecast(
                     ForecastType.MOSTLY_SUNNY,
-                    forecast.forecastType
+                    hourlyData[idx].forecastType
                   )
                 "
               />
@@ -50,7 +50,7 @@
                 v-else-if="
                   isPredictedForecast(
                     ForecastType.PARTLY_SUNNY,
-                    forecast.forecastType
+                    hourlyData[idx].forecastType
                   )
                 "
               />
@@ -58,7 +58,7 @@
                 v-else-if="
                   isPredictedForecast(
                     ForecastType.MOSTLY_CLOUDY,
-                    forecast.forecastType
+                    hourlyData[idx].forecastType
                   )
                 "
               />
@@ -66,16 +66,16 @@
                 v-else-if="
                   isPredictedForecast(
                     ForecastType.MOSTLY_CLEAR,
-                    forecast.forecastType
+                    hourlyData[idx].forecastType
                   )
                 "
               />
               <CloudyNightWidget v-else />
               <span class="mt-1 text-sm font-semibold">{{
-                splitTime(forecast.startTime)[0]
+                splitTime(hourlyData[idx].startTime)[0]
               }}</span>
               <span class="text-xs font-semibold text-gray-400">{{
-                splitTime(forecast.startTime)[1]
+                splitTime(hourlyData[idx].startTime)[1]
               }}</span>
             </div>
           </div>

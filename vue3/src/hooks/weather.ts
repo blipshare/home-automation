@@ -44,7 +44,6 @@ export function processWeather() {
         (val) => val == predictedForecast
       );
 
-      console.log("foundit: " + foundIt);
       isPredicted =
         foundIt >= 0 && Object.keys(ForecastType)[foundIt] == forecastType;
     }
@@ -72,12 +71,12 @@ export function processWeather() {
       console.log(filteredData);
       const minTemp = filteredData.reduce(
         (a, b) => Math.min(a, b.temp),
-        Infinity
+        Number.MAX_VALUE
       );
       const maxTemp = filteredData.reduce((a, b) => Math.max(a, b.temp), 0);
       const maxPrec = filteredData.reduce(
         (a, b) => Math.max(a, b.precepProb),
-        Infinity
+        0
       );
       console.log(minTemp);
       console.log(maxTemp);
@@ -143,7 +142,7 @@ export function processWeather() {
     const tempData = [];
     const periods = json["periods"];
 
-    for (let idx = 0; idx < 18; idx++) {
+    for (let idx = 0; idx < periods.length; idx++) {
       const period = periods[idx];
       const startTime = new Date(period["startTime"]);
       const dateStr = startTime.toLocaleDateString("en-US", {
