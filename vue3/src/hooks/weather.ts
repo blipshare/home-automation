@@ -63,7 +63,7 @@ export function processWeather() {
 
   function findMaxMin(date: string) {
     const filteredData = hourlyData.value?.filter(
-      (data) => data.dateStr == date
+      (data) => data.dateStr === date
     );
 
     if (filteredData != null) {
