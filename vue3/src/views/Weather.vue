@@ -139,6 +139,15 @@
                 )
               "
             />
+            <RainWidget
+              v-else-if="
+                isPredictedForecast(ForecastType.RAIN, forecast.forecastType) ||
+                isPredictedForecast(
+                  ForecastType.LIGHT_RAIN,
+                  forecast.forecastType
+                )
+              "
+            />
             <span class="w-1/4 text-right text-lg font-semibold"
               >{{ forecast.minTemp }}° / {{ forecast.maxTemp }}°</span
             >
@@ -294,6 +303,7 @@ import CloudySunnyWidget from "@/views/widgets/weather/CloudySunnyWidget.vue";
 import CloudyWidget from "@/views/widgets/weather/CloudyWidget.vue";
 import CloudyNightWidget from "@/views/widgets/weather/CloudyNightWidget.vue";
 import ClearNightWidget from "@/views/widgets/weather/ClearNightWidget.vue";
+import RainWidget from "@/views/widgets/weather/RainWidget.vue";
 import { ForecastType } from "@/modal/weather_modal";
 
 const {
