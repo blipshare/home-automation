@@ -79,7 +79,7 @@ export function processWeather() {
       //  -1
       //);
       const maxPrecIdx = filteredData.reduce(
-        (iMax, x, i, arr) => (x > arr[iMax] ? i : iMax),
+        (iMax, x, i, arr) => (x.precepProb > arr[iMax].precepProb ? i : iMax),
         0
       );
       const maxPrecData = filteredData[maxPrecIdx];
