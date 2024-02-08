@@ -151,6 +151,10 @@
                 isPredictedForecast(
                   ForecastType.LIGHT_RAIN,
                   forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.RAIN_AND_SNOW,
+                  forecast.forecastType
                 )
               "
             />
