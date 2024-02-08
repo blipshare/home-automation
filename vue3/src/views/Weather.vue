@@ -28,60 +28,62 @@
               />
             </svg>
           </div>
-          <div
-            class="mt-8 flex justify-between overflow-x-auto overflow-y-scroll"
-            v-if="hourlyData != null"
-          >
+          <div class="overflow-auto">
             <div
-              v-for="idx in 18"
-              :key="idx"
-              :value="hourlyData[idx - 1]"
-              :class="getCss(idx - 1)"
+              class="mt-8 mb-2 flex justify-between"
+              v-if="hourlyData != null"
             >
-              <span class="text-lg font-semibold"
-                >{{ hourlyData[idx - 1].temp }}°{{
-                  hourlyData[idx - 1].tempUnit
-                }}</span
+              <div
+                v-for="idx in 18"
+                :key="idx"
+                :value="hourlyData[idx - 1]"
+                :class="getCss(idx - 1)"
               >
-              <SunnyWidget
-                v-if="
-                  isPredictedForecast(
-                    ForecastType.MOSTLY_SUNNY,
-                    hourlyData[idx].forecastType
-                  )
-                "
-              />
-              <CloudySunnyWidget
-                v-else-if="
-                  isPredictedForecast(
-                    ForecastType.PARTLY_SUNNY,
-                    hourlyData[idx - 1].forecastType
-                  )
-                "
-              />
-              <CloudyWidget
-                v-else-if="
-                  isPredictedForecast(
-                    ForecastType.MOSTLY_CLOUDY,
-                    hourlyData[idx - 1].forecastType
-                  )
-                "
-              />
-              <ClearNightWidget
-                v-else-if="
-                  isPredictedForecast(
-                    ForecastType.MOSTLY_CLEAR,
-                    hourlyData[idx - 1].forecastType
-                  )
-                "
-              />
-              <CloudyNightWidget v-else />
-              <span class="mt-1 text-sm font-semibold">{{
-                splitTime(hourlyData[idx - 1].startTime)[0]
-              }}</span>
-              <span class="text-xs font-semibold text-gray-400">{{
-                splitTime(hourlyData[idx - 1].startTime)[1]
-              }}</span>
+                <span class="text-lg font-semibold"
+                  >{{ hourlyData[idx - 1].temp }}°{{
+                    hourlyData[idx - 1].tempUnit
+                  }}</span
+                >
+                <SunnyWidget
+                  v-if="
+                    isPredictedForecast(
+                      ForecastType.MOSTLY_SUNNY,
+                      hourlyData[idx].forecastType
+                    )
+                  "
+                />
+                <CloudySunnyWidget
+                  v-else-if="
+                    isPredictedForecast(
+                      ForecastType.PARTLY_SUNNY,
+                      hourlyData[idx - 1].forecastType
+                    )
+                  "
+                />
+                <CloudyWidget
+                  v-else-if="
+                    isPredictedForecast(
+                      ForecastType.MOSTLY_CLOUDY,
+                      hourlyData[idx - 1].forecastType
+                    )
+                  "
+                />
+                <ClearNightWidget
+                  v-else-if="
+                    isPredictedForecast(
+                      ForecastType.MOSTLY_CLEAR,
+                      hourlyData[idx - 1].forecastType
+                    )
+                  "
+                />
+                <CloudyNightWidget v-else />
+                <span class="mt-1 text-sm font-semibold">{{
+                  splitTime(hourlyData[idx - 1].startTime)[0]
+                }}</span>
+                <span class="text-xs font-semibold text-gray-400">{{
+                  splitTime(hourlyData[idx - 1].startTime)[1]
+                }}</span>
+              </div>
             </div>
           </div>
         </div>

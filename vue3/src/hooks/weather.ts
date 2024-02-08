@@ -73,25 +73,32 @@ export function processWeather() {
         (a, b) => Math.min(a, b.temp),
         Number.MAX_VALUE
       );
-      const maxTemp = filteredData.reduce((a, b) => Math.max(a, b.temp), 0);
-      const maxPrec = filteredData.reduce(
-        (a, b) => Math.max(a, b.precepProb),
+      const maxTemp = filteredData.reduce((a, b) => Math.max(a, b.temp), -1);
+      //const maxPrec = filteredData.reduce(
+      //  (a, b) => Math.max(a, b.precepProb),
+      //  -1
+      //);
+      const maxPrecIdx = filteredData.reduce(
+        (iMax, x, i, arr) => (x > arr[iMax] ? i : iMax),
         0
       );
+      const maxPrecData = filteredData[maxPrecIdx];
       console.log(minTemp);
       console.log(maxTemp);
-      console.log(maxPrec);
+      console.log(maxPrecData);
 
       return {
         minTemp: minTemp,
         maxTemp: maxTemp,
-        maxPrec: maxPrec,
+        maxPrec: maxPrecData.precepProb,
+        forecastType: maxPrecData.forecastType,
       };
     }
     return {
       minTemp: -1,
       maxTemp: -1,
       maxPrec: -1,
+      ForecastType: ForecastType.UNDEFINED,
     };
   }
 
@@ -119,7 +126,9 @@ export function processWeather() {
           minTemp: maxMinData["minTemp"],
           tempUnit: startData["temperatureUnit"],
           precepProb: maxMinData["maxPrec"],
-          forecastType: getForecastType(startData["shortForecast"]),
+          forecastType: getForecastType(
+            maxMinData["forecastType"] || ForecastType.UNDEFINED
+          ),
         });
       }
     }
