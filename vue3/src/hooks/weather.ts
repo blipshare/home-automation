@@ -41,7 +41,7 @@ export function processWeather() {
     let isPredicted = false;
     if (forecastType != null) {
       const foundIt = Object.values(ForecastType).findIndex(
-        (val) => val == predictedForecast
+        (val) => val.toLowerCase() === predictedForecast.toLowerCase()
       );
 
       isPredicted =
@@ -91,14 +91,14 @@ export function processWeather() {
         minTemp: minTemp,
         maxTemp: maxTemp,
         maxPrec: maxPrecData.precepProb,
-        forecastType: maxPrecData.forecastType,
+        forecastType: maxPrecData.forecastType.toString(),
       };
     }
     return {
       minTemp: -1,
       maxTemp: -1,
       maxPrec: -1,
-      ForecastType: ForecastType.UNDEFINED,
+      ForecastType: ForecastType.UNDEFINED.toString(),
     };
   }
 
@@ -127,7 +127,7 @@ export function processWeather() {
           tempUnit: startData["temperatureUnit"],
           precepProb: maxMinData["maxPrec"],
           forecastType: getForecastType(
-            maxMinData["forecastType"] || ForecastType.UNDEFINED
+            maxMinData["forecastType"] || ForecastType.UNDEFINED.toString()
           ),
         });
       }
