@@ -21,7 +21,7 @@ export function processWeather() {
   const dailyData = ref<DailyData[]>();
   const currentTime = ref<String>();
   const currentTemp = ref<Number>();
-  const data = ref<Record<string, HourlyData[]>>();
+  const allData = ref<Record<string, HourlyData[]>>();
 
   function clearFields() {
     loading.value = false;
@@ -196,11 +196,13 @@ export function processWeather() {
         });
       }
     }
-    console.log("tempData2");
-    console.log(tempData2);
 
     // save the hourly data
     hourlyData.value = ref<HourlyData[]>(tempData).value;
+
+    allData.value = ref<Record<string, HourlyData[]>>(tempData2).value;
+    console.log("allData");
+    console.log(allData.value);
 
     // populate daily data
     populateDailyData(periods);
@@ -229,6 +231,7 @@ export function processWeather() {
       day: "2-digit",
       month: "short",
     });
+    currentTime.value = "Thu, Jan 04";
     getHourlyData();
   });
 
@@ -240,6 +243,7 @@ export function processWeather() {
     loading,
     error,
     metadata,
+    allData,
     hourlyData,
     dailyData,
     currentTime,
