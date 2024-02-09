@@ -33,10 +33,7 @@
             </svg>
           </div>
           <div class="overflow-auto">
-            <div
-              class="mt-8 mb-8 flex justify-between"
-              v-if="hourlyData != null"
-            >
+            <div class="mt-8 flex justify-between" v-if="hourlyData != null">
               <div
                 v-for="idx in 18"
                 :key="idx"
@@ -92,7 +89,7 @@
           </div>
         </div>
         <div
-          class="mt-5 mb-5 flex h-80 w-full max-w-screen-sm flex-col space-y-6 rounded-xl bg-white p-10 ring-8 ring-white ring-opacity-40"
+          class="mt-5 mb-5 flex h-96 w-full max-w-screen-sm flex-col space-y-6 rounded-xl bg-white p-10 ring-8 ring-white ring-opacity-40"
         >
           <div
             class="flex items-center justify-between"
