@@ -21,7 +21,7 @@ export function processWeather() {
   const dailyData = ref<DailyData[]>();
   const currentTime = ref<String>();
   const currentTemp = ref<Number>();
-  const data = ref<Record<string, HourlyData>>();
+  const data = ref<Record<string, HourlyData[]>>();
 
   function clearFields() {
     loading.value = false;
@@ -143,7 +143,7 @@ export function processWeather() {
 
     // collect the detail info
     const tempData = [];
-    const tempData2: Record<string, HourlyData> = {};
+    const tempData2: Record<string, HourlyData[]> = {};
     const periods = json["periods"];
 
     for (let idx = 0; idx < periods.length; idx++) {
@@ -156,7 +156,7 @@ export function processWeather() {
       });
 
       if (period != null && period.length != 0) {
-        tempData2[dateStr] = {
+        const hData = {
           startTime: startTime.toLocaleDateString("en-US", {
             hour: "2-digit",
             minute: "2-digit",
@@ -172,6 +172,12 @@ export function processWeather() {
           precepProb: Number(period["probabilityOfPrecipitation"]["value"]),
           forecastType: getForecastType(period["shortForecast"]),
         };
+        if (dateStr in tempData2) {
+          tempData2[dateStr].push(hData);
+        } else {
+          tempData2[dateStr] = [hData];
+        }
+
         tempData.push({
           startTime: startTime.toLocaleDateString("en-US", {
             hour: "2-digit",
