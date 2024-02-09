@@ -33,23 +33,26 @@
             </svg>
           </div>
           <div class="overflow-auto">
-            <div class="mt-8 flex justify-between" v-if="allData != null && currentTime != null">
+            <div
+              class="mt-8 flex justify-between"
+              v-if="allData != null && currentTime != null"
+            >
               <div
-                v-for="(day, idx) in Object.keys(allData).filter(key => key === currentTime)"
+                v-for="(forecast, idx) in allData[
+                  Object.keys(allData).filter((key) => key === currentTime)[0]
+                ]"
                 :key="idx"
-                :value="day"
+                :value="forecast"
                 :class="getCss(idx)"
               >
                 <span class="text-lg font-semibold"
-                  >{{ allData[day][idx].temp }}°{{
-                    allData[day][idx].tempUnit
-                  }}</span
+                  >{{ forecast.temp }}°{{ forecast.tempUnit }}</span
                 >
                 <SunnyWidget
                   v-if="
                     isPredictedForecast(
                       ForecastType.MOSTLY_SUNNY,
-                      allData[day][idx].forecastType
+                      forecast.forecastType
                     )
                   "
                 />
@@ -57,7 +60,7 @@
                   v-else-if="
                     isPredictedForecast(
                       ForecastType.PARTLY_SUNNY,
-                      allData[day][idx].forecastType
+                      forecast.forecastType
                     )
                   "
                 />
@@ -65,7 +68,7 @@
                   v-else-if="
                     isPredictedForecast(
                       ForecastType.MOSTLY_CLOUDY,
-                      allData[day][idx].forecastType
+                      forecast.forecastType
                     )
                   "
                 />
@@ -73,16 +76,16 @@
                   v-else-if="
                     isPredictedForecast(
                       ForecastType.MOSTLY_CLEAR,
-                      allData[day][idx].forecastType
+                      forecast.forecastType
                     )
                   "
                 />
                 <CloudyNightWidget v-else />
                 <span class="mt-1 text-sm font-semibold">{{
-                  splitTime(allData[day][idx].startTime)[0]
+                  splitTime(forecast.startTime)[0]
                 }}</span>
                 <span class="text-xs font-semibold text-gray-400">{{
-                  splitTime(allData[day][idx].startTime)[1]
+                  splitTime(forecast.startTime)[1]
                 }}</span>
               </div>
             </div>
