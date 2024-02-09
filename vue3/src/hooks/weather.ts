@@ -98,7 +98,30 @@ export function processWeather() {
     };
   }
 
-  function populateDailyData(json: any) {
+  function populateDailyData() {
+    const tempData = [];
+    for (const [day, dailyData] of Object.entries(allData)) {
+      if (day === currentTime.value) {
+        continue;
+      }
+
+      const startData = dailyData[0];
+      const maxMinData = findMaxMin(day);
+      tempData.push({
+        date: day,
+        maxTemp: maxMinData["maxTemp"],
+        minTemp: maxMinData["minTemp"],
+        tempUnit: startData["temperatureUnit"],
+        precepProb: maxMinData["maxPrec"],
+        forecastType: maxMinData["forecastType"],
+      });
+    }
+
+    console.log("daily data:");
+    console.log(tempData);
+    dailyData.value = ref<DailyData[]>(tempData).value;
+  }
+  function populateDailyDataOld(json: any) {
     const tempData = [];
     for (let idx = 17; idx < json.length - 24; idx += 24) {
       const dailyData = json.slice(idx, idx + 24);
@@ -205,7 +228,8 @@ export function processWeather() {
     console.log(allData.value);
 
     // populate daily data
-    populateDailyData(periods);
+    //populateDailyData(periods);
+    populateDailyData();
   }
 
   async function getHourlyData() {
