@@ -191,7 +191,7 @@ export function processWeather() {
       }
     }
     console.log("tempData2");
-    //console.log(tempData);
+    console.log(tempData2);
 
     // save the hourly data
     hourlyData.value = ref<HourlyData[]>(tempData).value;
