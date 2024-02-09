@@ -6,6 +6,7 @@ import {
   type DailyData,
 } from "@/modal/weather_modal";
 
+
 export interface Metadata {
   location: string;
   generatedOn: string;
@@ -20,6 +21,7 @@ export function processWeather() {
   const dailyData = ref<DailyData[]>();
   const currentTime = ref<String>();
   const currentTemp = ref<Number>();
+  const data = ref<Record<string, HourlyData>>();
 
   function clearFields() {
     loading.value = false;
@@ -67,18 +69,11 @@ export function processWeather() {
     );
 
     if (filteredData != null) {
-      console.log("dateStr: " + date);
-      console.log("filteredData");
-      console.log(filteredData);
       const minTemp = filteredData.reduce(
         (a, b) => Math.min(a, b.temp),
         Number.MAX_VALUE
       );
       const maxTemp = filteredData.reduce((a, b) => Math.max(a, b.temp), -1);
-      //const maxPrec = filteredData.reduce(
-      //  (a, b) => Math.max(a, b.precepProb),
-      //  -1
-      //);
       const maxPrecIdx = filteredData.reduce(
         (iMax, x, i, arr) => (x.precepProb > arr[iMax].precepProb ? i : iMax),
         0
@@ -131,8 +126,8 @@ export function processWeather() {
         });
       }
     }
-    console.log("dailyData");
-    console.log(tempData);
+    //console.log("dailyData");
+    //console.log(tempData);
 
     dailyData.value = ref<DailyData[]>(tempData).value;
   }
@@ -148,6 +143,7 @@ export function processWeather() {
 
     // collect the detail info
     const tempData = [];
+    const tempData2: Record<string, HourlyData> = {};
     const periods = json["periods"];
 
     for (let idx = 0; idx < periods.length; idx++) {
@@ -160,6 +156,22 @@ export function processWeather() {
       });
 
       if (period != null && period.length != 0) {
+        tempData2[dateStr] = {
+          startTime: startTime.toLocaleDateString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          endTime: new Date(period["endTime"]).toLocaleDateString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+          dateStr: dateStr,
+          temp: Number(period["temperature"]),
+          tempUnit: period["temperatureUnit"],
+          isDayTime: period["isDayTime"],
+          precepProb: Number(period["probabilityOfPrecipitation"]["value"]),
+          forecastType: getForecastType(period["shortForecast"]),
+        };
         tempData.push({
           startTime: startTime.toLocaleDateString("en-US", {
             hour: "2-digit",
@@ -178,7 +190,7 @@ export function processWeather() {
         });
       }
     }
-    //console.log("tempData");
+    console.log("tempData2");
     //console.log(tempData);
 
     // save the hourly data
