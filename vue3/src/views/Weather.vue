@@ -10,10 +10,14 @@
         >
           <div class="flex justify-between">
             <div class="flex flex-col">
-              <span class="text-6xl font-bold">29°C</span>
-              <span class="mt-1 font-semibold text-gray-500">{{
-                metadata?.location
-              }}</span>
+              <span class="text-6xl font-bold">{{ currentTemp }}°F</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-3xl font-bold">{{ currentTime }}</span>
+              <span
+                class="flex mt-1 font-semibold text-gray-500 justify-center"
+                >{{ metadata?.location }}</span
+              >
             </div>
             <svg
               class="h-24 w-24 fill-current text-yellow-400"
@@ -322,6 +326,8 @@ const {
   metadata,
   hourlyData,
   dailyData,
+  currentTime,
+  currentTemp,
   splitTime,
   isPredictedForecast,
 } = processWeather();

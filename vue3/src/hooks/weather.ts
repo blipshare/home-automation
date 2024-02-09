@@ -18,7 +18,8 @@ export function processWeather() {
   const metadata = ref<Metadata>();
   const hourlyData = ref<HourlyData[]>();
   const dailyData = ref<DailyData[]>();
-  const currentTime = ref<Date>();
+  const currentTime = ref<String>();
+  const currentTemp = ref<Number>();
 
   function clearFields() {
     loading.value = false;
@@ -157,8 +158,6 @@ export function processWeather() {
         day: "2-digit",
         month: "short",
       });
-      const shouldShowInMainView =
-        startTime.getTime() - currentTime.value!.getTime() > 0;
 
       if (period != null && period.length != 0) {
         tempData.push({
@@ -176,7 +175,6 @@ export function processWeather() {
           isDayTime: period["isDayTime"],
           precepProb: Number(period["probabilityOfPrecipitation"]["value"]),
           forecastType: getForecastType(period["shortForecast"]),
-          includeInMainView: shouldShowInMainView,
         });
       }
     }
@@ -208,7 +206,11 @@ export function processWeather() {
 
   onMounted(() => {
     // fake the current time for now
-    currentTime.value = new Date("2024-01-07T03:00:00-05:00");
+    currentTime.value = new Date().toLocaleDateString("en-US", {
+      weekday: "short",
+      day: "2-digit",
+      month: "short",
+    });
     getHourlyData();
   });
 
@@ -222,6 +224,8 @@ export function processWeather() {
     metadata,
     hourlyData,
     dailyData,
+    currentTime,
+    currentTemp,
     splitTime,
     isPredictedForecast,
   };

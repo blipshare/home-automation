@@ -21,7 +21,6 @@ export interface HourlyData {
   isDayTime: boolean;
   precepProb: number;
   forecastType: ForecastType;
-  includeInMainView: boolean;
 }
 
 export interface DailyData {
