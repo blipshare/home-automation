@@ -100,28 +100,31 @@ export function processWeather() {
 
   function populateDailyData() {
     const tempData = [];
-    for (const [day, dailyData] of Object.entries(allData)) {
-      if (day === currentTime.value) {
-        continue;
+    if (allData.value != null) {
+      for (const day of Object.keys(allData).filter(
+        (key) => key != currentTime.value
+      )) {
+        const dailyData = allData.value[day];
+        console.log("dailydata");
+        console.log(dailyData);
+        const startData = dailyData[0];
+        const maxMinData = findMaxMin(day);
+
+        tempData.push({
+          date: day,
+          maxTemp: maxMinData["maxTemp"],
+          minTemp: maxMinData["minTemp"],
+          tempUnit: startData.tempUnit,
+          precepProb: maxMinData["maxPrec"],
+          forecastType: maxMinData["forecastType"],
+        });
+        console.log("tempdata in pop:");
+        console.log(tempData);
       }
-      console.log("gets here");
-      const startData = dailyData[0];
-      const maxMinData = findMaxMin(day);
-      console.log('gets here 2');
-      tempData.push({
-        date: day,
-        maxTemp: maxMinData["maxTemp"],
-        minTemp: maxMinData["minTemp"],
-        tempUnit: startData["temperatureUnit"],
-        precepProb: maxMinData["maxPrec"],
-        forecastType: maxMinData["forecastType"],
-      });
-      console.log("tempdata in pop:");
+
+      console.log("daily data:");
       console.log(tempData);
     }
-
-    console.log("daily data:");
-    console.log(tempData);
     dailyData.value = ref<DailyData[]>(tempData).value;
   }
   function populateDailyDataOld(json: any) {
