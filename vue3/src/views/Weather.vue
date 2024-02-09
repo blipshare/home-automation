@@ -2,7 +2,7 @@
   <div class="flex w-full justify-center mt-2 mb-2">
     <div id="item1" class="carousel-item w-full">
       <div
-        class="items-left from-blue-200 flex grid min-h-screen w-screen grid-cols-1 flex-col justify-center gap-6 bg-gradient-to-br via-blue-200 to-indigo-200 p-10 py-1 text-gray-700"
+        class="items-left mb-4 from-blue-200 flex grid min-h-screen w-screen grid-cols-1 flex-col justify-center gap-6 bg-gradient-to-br via-blue-200 to-indigo-200 p-10 py-1 text-gray-700"
       >
         <!-- Component Start -->
         <div
