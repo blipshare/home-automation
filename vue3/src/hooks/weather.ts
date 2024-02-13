@@ -261,7 +261,7 @@ export function processWeather() {
       day: "2-digit",
       month: "short",
     });
-    currentTime.value = "Thu, Jan 04";
+
     getHourlyData();
   });
 
