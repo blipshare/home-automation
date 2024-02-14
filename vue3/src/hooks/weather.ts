@@ -106,10 +106,10 @@ export function processWeather() {
           continue;
         }
         const dailyData = allData.value[day];
-        console.log("dailydata");
-        console.log(dailyData);
         const startData = dailyData[0];
         const maxMinData = findMaxMin(day);
+        console.log("maxMin");
+        console.log(maxMinData);
 
         tempData.push({
           date: day,
@@ -119,8 +119,6 @@ export function processWeather() {
           precepProb: maxMinData["maxPrec"],
           forecastType: maxMinData["forecastType"],
         });
-        console.log("tempdata in pop:");
-        console.log(tempData);
       }
 
       console.log("daily data:");

@@ -61,7 +61,8 @@
                     (isPredictedForecast(
                       ForecastType.MOSTLY_CLEAR,
                       forecast.forecastType
-                    ) && forecast.isDayTime)
+                    ) &&
+                      forecast.isDayTime)
                   "
                 />
                 <RainWidget
@@ -89,7 +90,11 @@
                     isPredictedForecast(
                       ForecastType.RAIN_AND_SNOW_LIKELY,
                       forecast.forecastType
-                    ) ||
+                    )
+                  "
+                />
+                <SnowWidget
+                  v-else-if="
                     isPredictedForecast(
                       ForecastType.CHANCE_LIGHT_SNOW,
                       forecast.forecastType
@@ -216,7 +221,11 @@
                 isPredictedForecast(
                   ForecastType.RAIN_AND_SNOW_LIKELY,
                   forecast.forecastType
-                ) ||
+                )
+              "
+            />
+            <SnowWidget
+              v-else-if="
                 isPredictedForecast(
                   ForecastType.CHANCE_LIGHT_SNOW,
                   forecast.forecastType
@@ -379,6 +388,7 @@ import CloudyWidget from "@/views/widgets/weather/CloudyWidget.vue";
 import CloudyNightWidget from "@/views/widgets/weather/CloudyNightWidget.vue";
 import ClearNightWidget from "@/views/widgets/weather/ClearNightWidget.vue";
 import RainWidget from "@/views/widgets/weather/RainWidget.vue";
+import SnowWidget from "@/views/widgets/weather/SnowWidget.vue";
 import { ForecastType } from "@/modal/weather_modal";
 
 const {
