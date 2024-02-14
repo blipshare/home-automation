@@ -101,14 +101,14 @@
                     )
                   "
                 />
-                <SnowWidget
+                <!-- <SnowWidget
                   v-else-if="
                     isPredictedForecast(
                       ForecastType.CHANCE_LIGHT_SNOW,
                       forecast.forecastType
                     )
                   "
-                />
+                /> -->
                 <CloudySunnyWidget
                   v-else-if="
                     isPredictedForecast(
