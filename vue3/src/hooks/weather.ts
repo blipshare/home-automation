@@ -65,6 +65,7 @@ export function processWeather() {
   function findMaxMin(date: string) {
     if (allData.value != null) {
       const idx = Object.keys(allData.value).findIndex((day) => day === date);
+      console.log("minmax Idx: " + idx);
 
       if (idx >= 0) {
         const filteredData = allData.value[idx];
