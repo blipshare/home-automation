@@ -99,6 +99,7 @@ export function processWeather() {
   }
 
   function populateDailyData() {
+    console.log("current time: " + currentTime.value);
     const tempData = [];
     if (allData.value != null) {
       for (const day of Object.keys(allData).filter(
