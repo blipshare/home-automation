@@ -18,6 +18,8 @@ export enum ForecastType {
 }
 
 export interface HourlyData {
+  rawStartTime: Date;
+  rawEndTime: Date;
   startTime: string;
   endTime: string;
   dateStr: string;

@@ -13,7 +13,7 @@
               <span class="text-6xl font-bold">{{ currentTemp }}°F</span>
             </div>
             <div class="flex flex-col">
-              <span class="text-3xl font-bold">{{ currentTime }}</span>
+              <span class="text-3xl font-bold">{{ today }}</span>
               <span
                 class="flex mt-1 font-semibold text-gray-500 justify-center"
                 >{{ metadata?.location }}</span
@@ -35,11 +35,11 @@
           <div class="overflow-auto">
             <div
               class="mt-8 flex justify-between"
-              v-if="allData != null && currentTime != null"
+              v-if="allData != null && today != null"
             >
               <div
                 v-for="(forecast, idx) in allData[
-                  Object.keys(allData).filter((key) => key === currentTime)[0]
+                  Object.keys(allData).filter((key) => key === today)[0]
                 ]"
                 :key="idx"
                 :value="forecast"
@@ -428,9 +428,8 @@ const {
   error,
   metadata,
   allData,
-  hourlyData,
   dailyData,
-  currentTime,
+  today,
   currentTemp,
   splitTime,
   isPredictedForecast,

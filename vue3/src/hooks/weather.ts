@@ -16,9 +16,9 @@ export function processWeather() {
   const loading = ref(false);
   const error = ref("");
   const metadata = ref<Metadata>();
-  const hourlyData = ref<HourlyData[]>();
   const dailyData = ref<DailyData[]>();
-  const currentTime = ref<String>();
+  const today = ref<String>();
+  const currentTime = ref<Date>();
   const currentTemp = ref<Number>();
   const allData = ref<Record<string, HourlyData[]>>();
 
@@ -63,31 +63,32 @@ export function processWeather() {
   }
 
   function findMaxMin(date: string) {
-    const filteredData = hourlyData.value?.filter(
-      (data) => data.dateStr === date
-    );
+    if (allData.value != null) {
+      const idx = Object.keys(allData.value).findIndex((day) => day === date);
 
-    if (filteredData != null) {
-      const minTemp = filteredData.reduce(
-        (a, b) => Math.min(a, b.temp),
-        Number.MAX_VALUE
-      );
-      const maxTemp = filteredData.reduce((a, b) => Math.max(a, b.temp), -1);
-      const maxPrecIdx = filteredData.reduce(
-        (iMax, x, i, arr) => (x.precepProb > arr[iMax].precepProb ? i : iMax),
-        0
-      );
-      const maxPrecData = filteredData[maxPrecIdx];
-      console.log(minTemp);
-      console.log(maxTemp);
-      console.log(maxPrecData);
+      if (idx >= 0) {
+        const filteredData = allData.value[idx];
+        const minTemp = filteredData.reduce(
+          (a, b) => Math.min(a, b.temp),
+          Number.MAX_VALUE
+        );
+        const maxTemp = filteredData.reduce((a, b) => Math.max(a, b.temp), -1);
+        const maxPrecIdx = filteredData.reduce(
+          (iMax, x, i, arr) => (x.precepProb > arr[iMax].precepProb ? i : iMax),
+          0
+        );
+        const maxPrecData = filteredData[maxPrecIdx];
+        console.log(minTemp);
+        console.log(maxTemp);
+        console.log(maxPrecData);
 
-      return {
-        minTemp: minTemp,
-        maxTemp: maxTemp,
-        maxPrec: maxPrecData.precepProb,
-        forecastType: maxPrecData.forecastType,
-      };
+        return {
+          minTemp: minTemp,
+          maxTemp: maxTemp,
+          maxPrec: maxPrecData.precepProb,
+          forecastType: maxPrecData.forecastType,
+        };
+      }
     }
     return {
       minTemp: -1,
@@ -102,7 +103,7 @@ export function processWeather() {
     if (allData.value != null) {
       for (const day of Object.keys(allData.value)) {
         console.log("day: " + day);
-        if (day === currentTime.value) {
+        if (day === today.value) {
           continue;
         }
         const dailyData = allData.value[day];
@@ -126,38 +127,32 @@ export function processWeather() {
     }
     dailyData.value = ref<DailyData[]>(tempData).value;
   }
-  function populateDailyDataOld(json: any) {
-    const tempData = [];
-    for (let idx = 17; idx < json.length - 24; idx += 24) {
-      const dailyData = json.slice(idx, idx + 24);
-      if (dailyData.length > 0) {
-        const startData = dailyData[0];
-        const endData = dailyData[dailyData.length - 1];
-        console.log("startData");
-        console.log(startData);
-        console.log("endData");
-        console.log(endData);
-        const endTime = new Date(endData["endTime"]);
-        const dateStr = endTime.toLocaleDateString("en-US", {
-          weekday: "short",
-          day: "2-digit",
-          month: "short",
-        });
-        const maxMinData = findMaxMin(dateStr);
-        tempData.push({
-          date: dateStr,
-          maxTemp: maxMinData["maxTemp"],
-          minTemp: maxMinData["minTemp"],
-          tempUnit: startData["temperatureUnit"],
-          precepProb: maxMinData["maxPrec"],
-          forecastType: maxMinData["forecastType"],
-        });
+
+  function setCurrentTemp() {
+    let temp = -1;
+    if (currentTime.value != null && allData.value != null) {
+      const currTime = currentTime.value;
+      const idx = Object.keys(allData.value).findIndex(
+        (day) => day === today.value
+      );
+
+      if (idx >= 0) {
+        const forecasts = allData.value[idx];
+        // find the temp within the start and end of the current time
+        const timeIdx = forecasts.findIndex(
+          (forecast) =>
+            forecast.rawStartTime >= currTime && forecast.rawEndTime >= currTime
+        );
+
+        console.log("curr time idx: " + timeIdx);
+        if (timeIdx >= 0) {
+          temp = forecasts[timeIdx].temp;
+        }
+        console.log("temp: " + temp);
       }
     }
-    //console.log("dailyData");
-    //console.log(tempData);
 
-    dailyData.value = ref<DailyData[]>(tempData).value;
+    currentTemp.value = temp;
   }
 
   async function parseData(data: string) {
@@ -170,13 +165,13 @@ export function processWeather() {
     };
 
     // collect the detail info
-    const tempData = [];
-    const tempData2: Record<string, HourlyData[]> = {};
+    const tempData: Record<string, HourlyData[]> = {};
     const periods = json["periods"];
 
     for (let idx = 0; idx < periods.length; idx++) {
       const period = periods[idx];
       const startTime = new Date(period["startTime"]);
+      const endTime = new Date(period["endTime"]);
       const dateStr = startTime.toLocaleDateString("en-US", {
         weekday: "short",
         day: "2-digit",
@@ -185,11 +180,13 @@ export function processWeather() {
 
       if (period != null && period.length != 0) {
         const hData = {
+          rawStartTime: startTime,
+          rawEndTime: endTime,
           startTime: startTime.toLocaleDateString("en-US", {
             hour: "2-digit",
             minute: "2-digit",
           }),
-          endTime: new Date(period["endTime"]).toLocaleDateString("en-US", {
+          endTime: endTime.toLocaleDateString("en-US", {
             hour: "2-digit",
             minute: "2-digit",
           }),
@@ -200,40 +197,19 @@ export function processWeather() {
           precepProb: Number(period["probabilityOfPrecipitation"]["value"]),
           forecastType: getForecastType(period["shortForecast"]),
         };
-        if (dateStr in tempData2) {
-          tempData2[dateStr].push(hData);
+        if (dateStr in tempData) {
+          tempData[dateStr].push(hData);
         } else {
-          tempData2[dateStr] = [hData];
+          tempData[dateStr] = [hData];
         }
-
-        tempData.push({
-          startTime: startTime.toLocaleDateString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-          endTime: new Date(period["endTime"]).toLocaleDateString("en-US", {
-            hour: "2-digit",
-            minute: "2-digit",
-          }),
-          dateStr: dateStr,
-          temp: Number(period["temperature"]),
-          tempUnit: period["temperatureUnit"],
-          isDayTime: period["isDayTime"],
-          precepProb: Number(period["probabilityOfPrecipitation"]["value"]),
-          forecastType: getForecastType(period["shortForecast"]),
-        });
       }
     }
 
-    // save the hourly data
-    hourlyData.value = ref<HourlyData[]>(tempData).value;
-
-    allData.value = ref<Record<string, HourlyData[]>>(tempData2).value;
+    allData.value = ref<Record<string, HourlyData[]>>(tempData).value;
     console.log("allData");
     console.log(allData.value);
 
     // populate daily data
-    //populateDailyData(periods);
     populateDailyData();
   }
 
@@ -255,13 +231,15 @@ export function processWeather() {
 
   onMounted(() => {
     // fake the current time for now
-    currentTime.value = new Date().toLocaleDateString("en-US", {
+    currentTime.value = new Date();
+    today.value = currentTime.value.toLocaleDateString("en-US", {
       weekday: "short",
       day: "2-digit",
       month: "short",
     });
 
     getHourlyData();
+    setCurrentTemp();
   });
 
   defineProps<{
@@ -273,9 +251,8 @@ export function processWeather() {
     error,
     metadata,
     allData,
-    hourlyData,
     dailyData,
-    currentTime,
+    today,
     currentTemp,
     splitTime,
     isPredictedForecast,
