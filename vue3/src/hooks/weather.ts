@@ -196,7 +196,7 @@ export function processWeather() {
           dateStr: dateStr,
           temp: Number(period["temperature"]),
           tempUnit: period["temperatureUnit"],
-          isDayTime: period["isDayTime"],
+          isDayTime: Boolean(period["isDaytime"]),
           precepProb: Number(period["probabilityOfPrecipitation"]["value"]),
           forecastType: getForecastType(period["shortForecast"]),
         };

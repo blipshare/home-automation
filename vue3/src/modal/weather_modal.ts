@@ -11,6 +11,7 @@ export enum ForecastType {
   RAIN = "Rain",
   RAIN_AND_SNOW = "Rain And Snow",
   RAIN_AND_SNOW_LIKELY = "Rain And Snow Likely",
+  CHANCE_RAIN_AND_SNOW = "Chance Rain And Snow",
   CHANCE_LIGHT_SNOW = "Chance Light Snow",
   MOSTLY_CLEAR = "Mostly Clear",
 }
