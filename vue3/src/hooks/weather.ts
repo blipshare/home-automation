@@ -69,6 +69,8 @@ export function processWeather() {
 
       if (idx >= 0) {
         const filteredData = allData.value[idx];
+        console.log("filteredData:");
+        console.log(filteredData);
         const minTemp = filteredData.reduce(
           (a, b) => Math.min(a, b.temp),
           Number.MAX_VALUE
