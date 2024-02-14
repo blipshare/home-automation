@@ -31,7 +31,7 @@ export function processWeather() {
   function getForecastType(type: string) {
     const idx = Object.values(ForecastType).findIndex((val) => val === type);
     let foundVal: ForecastType = ForecastType.UNDEFINED;
-    if (idx > 0) {
+    if (idx >= 0) {
       foundVal = Object.keys(ForecastType)[idx] as ForecastType;
     }
     return foundVal;
@@ -99,12 +99,12 @@ export function processWeather() {
   }
 
   function populateDailyData() {
-    console.log("current time: " + currentTime.value);
     const tempData = [];
     if (allData.value != null) {
       for (const day of Object.keys(allData).filter(
         (key) => key != currentTime.value
       )) {
+        console.log("day: " + day);
         const dailyData = allData.value[day];
         console.log("dailydata");
         console.log(dailyData);
