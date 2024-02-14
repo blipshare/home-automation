@@ -6,7 +6,6 @@ import {
   type DailyData,
 } from "@/modal/weather_modal";
 
-
 export interface Metadata {
   location: string;
   generatedOn: string;
@@ -101,10 +100,11 @@ export function processWeather() {
   function populateDailyData() {
     const tempData = [];
     if (allData.value != null) {
-      for (const day of Object.keys(allData).filter(
-        (key) => key != currentTime.value
-      )) {
+      for (const day of Object.keys(allData.value)) {
         console.log("day: " + day);
+        if (day === currentTime.value) {
+          continue;
+        }
         const dailyData = allData.value[day];
         console.log("dailydata");
         console.log(dailyData);
