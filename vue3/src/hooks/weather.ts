@@ -64,11 +64,11 @@ export function processWeather() {
 
   function findMaxMin(date: string) {
     if (allData.value != null) {
-      const idx = Object.keys(allData.value).findIndex((day) => day === date);
-      console.log("minmax Idx: " + idx);
+      const day = Object.keys(allData.value).find((day) => day === date);
+      console.log("minmax Idx: " + day);
 
-      if (idx >= 0) {
-        const filteredData = allData.value[idx];
+      if (day != null) {
+        const filteredData = allData.value[day];
         console.log("filteredData:");
         console.log(filteredData);
         const minTemp = filteredData.reduce(
@@ -135,12 +135,10 @@ export function processWeather() {
     let temp = -1;
     if (currentTime.value != null && allData.value != null) {
       const currTime = currentTime.value;
-      const idx = Object.keys(allData.value).findIndex(
-        (day) => day === today.value
-      );
+      const day = Object.keys(allData.value).find((day) => day === today.value);
 
-      if (idx >= 0) {
-        const forecasts = allData.value[idx];
+      if (day != null) {
+        const forecasts = allData.value[day];
         // find the temp within the start and end of the current time
         const timeIdx = forecasts.findIndex(
           (forecast) =>
