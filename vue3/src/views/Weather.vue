@@ -120,6 +120,10 @@
             <SunnyWidget
               v-if="
                 isPredictedForecast(
+                  ForecastType.SUNNY,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
                   ForecastType.MOSTLY_SUNNY,
                   forecast.forecastType
                 ) ||
@@ -157,7 +161,23 @@
                   forecast.forecastType
                 ) ||
                 isPredictedForecast(
+                  ForecastType.CHANCE_LIGHT_RAIN,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.SLIGHT_CHANCE_LIGHT_RAIN,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
                   ForecastType.RAIN_AND_SNOW,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.RAIN_AND_SNOW_LIKELY,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.CHANCE_LIGHT_SNOW,
                   forecast.forecastType
                 )
               "
