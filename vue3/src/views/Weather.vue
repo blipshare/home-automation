@@ -229,6 +229,10 @@
                 isPredictedForecast(
                   ForecastType.CHANCE_LIGHT_SNOW,
                   forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.CHANCE_RAIN_AND_SNOW,
+                  forecast.forecastType
                 )
               "
             />
