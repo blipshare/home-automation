@@ -90,6 +90,14 @@
                     isPredictedForecast(
                       ForecastType.RAIN_AND_SNOW_LIKELY,
                       forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
+                      ForecastType.CHANCE_LIGHT_SNOW,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
+                      ForecastType.CHANCE_RAIN_AND_SNOW,
+                      forecast.forecastType
                     )
                   "
                 />
@@ -217,11 +225,7 @@
                 isPredictedForecast(
                   ForecastType.RAIN_AND_SNOW,
                   forecast.forecastType
-                )
-              "
-            />
-            <SnowWidget
-              v-else-if="
+                ) ||
                 isPredictedForecast(
                   ForecastType.RAIN_AND_SNOW_LIKELY,
                   forecast.forecastType
@@ -236,6 +240,22 @@
                 )
               "
             />
+            <!-- <SnowWidget
+              v-else-if="
+                isPredictedForecast(
+                  ForecastType.RAIN_AND_SNOW_LIKELY,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.CHANCE_LIGHT_SNOW,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.CHANCE_RAIN_AND_SNOW,
+                  forecast.forecastType
+                )
+              "
+            /> -->
             <span class="w-1/4 text-right text-lg font-semibold"
               >{{ forecast.minTemp }}° / {{ forecast.maxTemp }}°</span
             >
