@@ -51,7 +51,47 @@
                 <SunnyWidget
                   v-if="
                     isPredictedForecast(
+                      ForecastType.SUNNY,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
                       ForecastType.MOSTLY_SUNNY,
+                      forecast.forecastType
+                    ) ||
+                    (isPredictedForecast(
+                      ForecastType.MOSTLY_CLEAR,
+                      forecast.forecastType
+                    ) && forecast.isDayTime)
+                  "
+                />
+                <RainWidget
+                  v-else-if="
+                    isPredictedForecast(
+                      ForecastType.RAIN,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
+                      ForecastType.LIGHT_RAIN,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
+                      ForecastType.CHANCE_LIGHT_RAIN,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
+                      ForecastType.SLIGHT_CHANCE_LIGHT_RAIN,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
+                      ForecastType.RAIN_AND_SNOW,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
+                      ForecastType.RAIN_AND_SNOW_LIKELY,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
+                      ForecastType.CHANCE_LIGHT_SNOW,
                       forecast.forecastType
                     )
                   "
@@ -74,6 +114,7 @@
                 />
                 <ClearNightWidget
                   v-else-if="
+                    !forecast.isDayTime &&
                     isPredictedForecast(
                       ForecastType.MOSTLY_CLEAR,
                       forecast.forecastType
