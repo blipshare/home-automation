@@ -96,6 +96,10 @@
                       forecast.forecastType
                     ) ||
                     isPredictedForecast(
+                      ForecastType.SLIGHT_CHANCE_RAIN_AND_SNOW,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
                       ForecastType.CHANCE_RAIN_AND_SNOW,
                       forecast.forecastType
                     )
@@ -146,7 +150,7 @@
           </div>
         </div>
         <div
-          class="mt-5 mb-5 flex h-96 w-full max-w-screen-sm flex-col space-y-6 rounded-xl bg-white p-10 ring-8 ring-white ring-opacity-40"
+          class="mt-5 mb-5 flex h-fit w-full max-w-screen-sm flex-col space-y-6 rounded-xl bg-white p-10 ring-8 ring-white ring-opacity-40"
         >
           <div
             class="flex items-center justify-between"
@@ -232,6 +236,10 @@
                 ) ||
                 isPredictedForecast(
                   ForecastType.CHANCE_LIGHT_SNOW,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.SLIGHT_CHANCE_RAIN_AND_SNOW,
                   forecast.forecastType
                 ) ||
                 isPredictedForecast(
