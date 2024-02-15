@@ -17,7 +17,7 @@ export function processWeather() {
   const error = ref("");
   const metadata = ref<Metadata>();
   const dailyData = ref<DailyData[]>();
-  const today = ref<String>();
+  const today = ref<string>();
   const currentTime = ref<Date>();
   const currentTemp = ref<Number>();
   const allData = ref<Record<string, HourlyData[]>>();
@@ -137,25 +137,24 @@ export function processWeather() {
     console.log(currentTime.value);
     console.log("Today:");
     console.log(today.value);
-    if (currentTime.value != null && allData.value != null) {
+    if (
+      currentTime.value != null &&
+      allData.value != null &&
+      today.value != null
+    ) {
       const currTime = currentTime.value;
-      const day = Object.keys(allData.value).find((day) => day === today.value);
-      console.log("day: ");
-      console.log(day);
-      if (day != null) {
-        const forecasts = allData.value[day];
-        // find the temp within the start and end of the current time
-        const timeIdx = forecasts.findIndex(
-          (forecast) =>
-            forecast.rawStartTime >= currTime && forecast.rawEndTime >= currTime
-        );
+      const forecasts = allData.value[today.value];
+      // find the temp within the start and end of the current time
+      const timeIdx = forecasts.findIndex(
+        (forecast) =>
+          forecast.rawStartTime >= currTime && forecast.rawEndTime >= currTime
+      );
 
-        console.log("curr time idx: " + timeIdx);
-        if (timeIdx >= 0) {
-          temp = forecasts[timeIdx].temp;
-        }
-        console.log("temp: " + temp);
+      console.log("curr time idx: " + timeIdx);
+      if (timeIdx >= 0) {
+        temp = forecasts[timeIdx].temp;
       }
+      console.log("temp: " + temp);
     }
 
     currentTemp.value = temp;
@@ -244,8 +243,7 @@ export function processWeather() {
       month: "short",
     });
 
-    getHourlyData();
-    setCurrentTemp();
+    getHourlyData().then(() => setCurrentTemp());
   });
 
   defineProps<{
