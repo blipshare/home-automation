@@ -133,6 +133,10 @@ export function processWeather() {
 
   function setCurrentTemp() {
     let temp = -1;
+    console.log("Current Time:");
+    console.log(currentTime.value);
+    console.log("Today:");
+    console.log(today.value);
     if (currentTime.value != null && allData.value != null) {
       const currTime = currentTime.value;
       const day = Object.keys(allData.value).find((day) => day === today.value);
