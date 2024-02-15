@@ -140,7 +140,8 @@ export function processWeather() {
     if (currentTime.value != null && allData.value != null) {
       const currTime = currentTime.value;
       const day = Object.keys(allData.value).find((day) => day === today.value);
-
+      console.log("day: ");
+      console.log(day);
       if (day != null) {
         const forecasts = allData.value[day];
         // find the temp within the start and end of the current time
