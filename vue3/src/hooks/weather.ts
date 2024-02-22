@@ -20,6 +20,7 @@ export function processWeather() {
   const today = ref<string>();
   const currentTime = ref<Date>();
   const currentTemp = ref<Number>();
+  const currentForecast = ref<ForecastType>();
   const allData = ref<Record<string, HourlyData[]>>();
 
   function clearFields() {
@@ -133,7 +134,7 @@ export function processWeather() {
 
   function setCurrentTemp() {
     let temp = -1;
-
+    let forecastType = ForecastType.UNDEFINED;
     if (
       currentTime.value != null &&
       allData.value != null &&
@@ -147,14 +148,18 @@ export function processWeather() {
           forecast.rawStartTime >= currTime && forecast.rawEndTime < currTime
       );
 
+      console.log("curr time:");
+      console.log(currTime);
       console.log("curr time idx: " + timeIdx);
       if (timeIdx >= 0) {
         temp = forecasts[timeIdx].temp;
+        forecastType = forecasts[timeIdx].forecastType;
       }
       console.log("temp: " + temp);
     }
 
     currentTemp.value = temp;
+    currentForecast.value = forecastType;
   }
 
   async function parseData(data: string) {

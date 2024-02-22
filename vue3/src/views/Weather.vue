@@ -76,6 +76,10 @@
                       forecast.forecastType
                     ) ||
                     isPredictedForecast(
+                      ForecastType.LIGHT_RAIN_LIKELY,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
                       ForecastType.CHANCE_LIGHT_RAIN,
                       forecast.forecastType
                     ) ||
@@ -216,6 +220,10 @@
                 isPredictedForecast(ForecastType.RAIN, forecast.forecastType) ||
                 isPredictedForecast(
                   ForecastType.LIGHT_RAIN,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.LIGHT_RAIN_LIKELY,
                   forecast.forecastType
                 ) ||
                 isPredictedForecast(
