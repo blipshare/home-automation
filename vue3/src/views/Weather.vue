@@ -19,7 +19,7 @@
             <div class="flex flex-col">
               <span class="text-3xl font-bold">{{ today }}</span>
               <span
-                class="flex mt-1 font-semibold text-gray-500 justify-center"
+                class="flex mt-1 text-xl font-semibold text-gray-500 justify-center"
                 >{{ formatCurrTime() }}</span
               >
             </div>
