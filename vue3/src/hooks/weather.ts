@@ -149,6 +149,8 @@ export function processWeather() {
           forecast.rawEndTime.getTime() < currTime
       );
 
+      console.log("Current Time:");
+      console.log(currentTime.value);
       console.log("curr time:");
       console.log(currTime);
       console.log("curr time idx: " + timeIdx);
