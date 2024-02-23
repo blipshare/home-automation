@@ -140,13 +140,13 @@ export function processWeather() {
       allData.value != null &&
       today.value != null
     ) {
-      const currTime = currentTime.value.getMilliseconds();
+      const currTime = currentTime.value.getTime();
       const forecasts = allData.value[today.value];
       // find the temp within the start and end of the current time
       const timeIdx = forecasts.findIndex(
         (forecast) =>
-          forecast.rawStartTime.getMilliseconds() >= currTime &&
-          forecast.rawEndTime.getMilliseconds() < currTime
+          forecast.rawStartTime.getTime() >= currTime &&
+          forecast.rawEndTime.getTime() < currTime
       );
 
       console.log("curr time:");
