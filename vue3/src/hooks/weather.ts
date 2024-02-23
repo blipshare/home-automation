@@ -66,7 +66,6 @@ export function processWeather() {
   function findMaxMin(date: string) {
     if (allData.value != null) {
       const day = Object.keys(allData.value).find((day) => day === date);
-      console.log("minmax Idx: " + day);
 
       if (day != null) {
         const filteredData = allData.value[day];
@@ -106,15 +105,12 @@ export function processWeather() {
     const tempData = [];
     if (allData.value != null) {
       for (const day of Object.keys(allData.value)) {
-        console.log("day: " + day);
         if (day === today.value) {
           continue;
         }
         const dailyData = allData.value[day];
         const startData = dailyData[0];
         const maxMinData = findMaxMin(day);
-        console.log("maxMin");
-        console.log(maxMinData);
 
         tempData.push({
           date: day,
@@ -149,20 +145,28 @@ export function processWeather() {
           currTime < forecast.rawEndTime.getTime()
       );
 
-      console.log("Current Time:");
-      console.log(currentTime.value);
-      console.log("curr time:");
-      console.log(currTime);
-      console.log("curr time idx: " + timeIdx);
       if (timeIdx >= 0) {
         temp = forecasts[timeIdx].temp;
         forecastType = forecasts[timeIdx].forecastType;
       }
-      console.log("temp: " + temp);
     }
 
     currentTemp.value = temp;
     currentForecast.value = forecastType;
+  }
+
+  function formatCurrTime() {
+    if (currentTime.value != null) {
+      const hours = currentTime.value.getHours();
+      const minutes = currentTime.value.getMinutes();
+      const seconds = currentTime.value.getSeconds();
+
+      // Format the string with leading zeroes
+      const clockStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      return clockStr;
+    }
+
+    return "";
   }
 
   async function parseData(data: string) {
@@ -249,6 +253,10 @@ export function processWeather() {
     });
 
     getHourlyData().then(() => setCurrentTemp());
+
+    setInterval(() => {
+      currentTime.value = new Date();
+    }, 1000);
   });
 
   defineProps<{
@@ -265,5 +273,6 @@ export function processWeather() {
     currentTemp,
     splitTime,
     isPredictedForecast,
+    formatCurrTime
   };
 }

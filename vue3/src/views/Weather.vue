@@ -11,12 +11,16 @@
           <div class="flex justify-between">
             <div class="flex flex-col">
               <span class="text-6xl font-bold">{{ currentTemp }}°F</span>
+              <span
+                class="flex mt-1 font-semibold text-gray-500 justify-center"
+                >{{ metadata?.location }}</span
+              >
             </div>
             <div class="flex flex-col">
               <span class="text-3xl font-bold">{{ today }}</span>
               <span
                 class="flex mt-1 font-semibold text-gray-500 justify-center"
-                >{{ metadata?.location }}</span
+                >{{ formatCurrTime() }}</span
               >
             </div>
             <svg
@@ -441,6 +445,7 @@ const {
   currentTemp,
   splitTime,
   isPredictedForecast,
+  formatCurrTime,
 } = processWeather();
 
 function getCss(idx: number) {
