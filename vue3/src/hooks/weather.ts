@@ -146,7 +146,7 @@ export function processWeather() {
       const timeIdx = forecasts.findIndex(
         (forecast) =>
           forecast.rawStartTime.getTime() >= currTime &&
-          forecast.rawEndTime.getTime() < currTime
+          currTime < forecast.rawEndTime.getTime()
       );
 
       console.log("Current Time:");
