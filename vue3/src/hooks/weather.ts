@@ -150,7 +150,7 @@ export function processWeather() {
       if (timeIdx >= 0) {
         temp = forecasts[timeIdx].temp;
         forecastType = forecasts[timeIdx].forecastType;
-        currHourIdx.value = timeIdx;
+        currHourIdx.value = timeIdx == 0 ? timeIdx : timeIdx - 1;
       }
     }
 
