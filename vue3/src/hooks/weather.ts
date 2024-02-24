@@ -22,7 +22,7 @@ export function processWeather() {
   const currentTemp = ref<Number>();
   const currentForecast = ref<ForecastType>();
   const currHour = ref<Number>();
-  const currHourIdx = ref<Number>();
+  const currHourIdx = ref<number>();
   const allData = ref<Record<string, HourlyData[]>>();
 
   function clearFields() {
@@ -148,9 +148,9 @@ export function processWeather() {
       );
 
       if (timeIdx >= 0) {
-        temp = forecasts[timeIdx].temp;
-        forecastType = forecasts[timeIdx].forecastType;
         currHourIdx.value = timeIdx == 0 ? timeIdx : timeIdx - 1;
+        temp = forecasts[currHourIdx.value].temp;
+        forecastType = forecasts[currHourIdx.value].forecastType;
       }
     }
 
