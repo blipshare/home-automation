@@ -455,6 +455,7 @@ const {
   dailyData,
   today,
   currentTemp,
+  currHourIdx,
   splitTime,
   isPredictedForecast,
   formatCurrTime,
@@ -468,6 +469,10 @@ function getCss(idx: number) {
     css = css + " mx-4";
   }
 
+  // create a box to represent the current hour forecast
+  if (currHourIdx != null && currHourIdx.value == idx) {
+    css = css + " bg-rose-400";
+  }
   return css;
 }
 </script>

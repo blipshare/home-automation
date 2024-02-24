@@ -21,6 +21,8 @@ export function processWeather() {
   const currentTime = ref<Date>();
   const currentTemp = ref<Number>();
   const currentForecast = ref<ForecastType>();
+  const currHour = ref<Number>();
+  const currHourIdx = ref<Number>();
   const allData = ref<Record<string, HourlyData[]>>();
 
   function clearFields() {
@@ -128,7 +130,7 @@ export function processWeather() {
     dailyData.value = ref<DailyData[]>(tempData).value;
   }
 
-  function setCurrentTemp() {
+  async function setCurrentTemp() {
     let temp = -1;
     let forecastType = ForecastType.UNDEFINED;
     if (
@@ -148,9 +150,12 @@ export function processWeather() {
       if (timeIdx >= 0) {
         temp = forecasts[timeIdx].temp;
         forecastType = forecasts[timeIdx].forecastType;
+        currHourIdx.value = timeIdx;
       }
     }
 
+    console.log("curr hour idx: ");
+    console.log(currHourIdx.value);
     currentTemp.value = temp;
     currentForecast.value = forecastType;
   }
@@ -162,7 +167,9 @@ export function processWeather() {
       const seconds = currentTime.value.getSeconds();
 
       // Format the string with leading zeroes
-      const clockStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+      const clockStr = `${hours.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
       return clockStr;
     }
 
@@ -243,7 +250,7 @@ export function processWeather() {
     loading.value = false;
   }
 
-  onMounted(() => {
+  onMounted(async () => {
     // fake the current time for now
     currentTime.value = new Date();
     today.value = currentTime.value.toLocaleDateString("en-US", {
@@ -252,10 +259,16 @@ export function processWeather() {
       month: "short",
     });
 
-    getHourlyData().then(() => setCurrentTemp());
+    await getHourlyData();
 
     setInterval(() => {
       currentTime.value = new Date();
+      const hour = currentTime.value.getHours();
+      if (currHour.value == null || currHour.value != hour) {
+        console.log("setting current temp: ");
+        currHour.value = hour;
+        setCurrentTemp();
+      }
     }, 1000);
   });
 
@@ -271,6 +284,7 @@ export function processWeather() {
     dailyData,
     today,
     currentTemp,
+    currHourIdx,
     splitTime,
     isPredictedForecast,
     formatCurrTime,
