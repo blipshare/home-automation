@@ -148,10 +148,10 @@
                       ForecastType.CLEAR,
                       forecast.forecastType
                     ) ||
-                    isPredictedForecast(
-                      ForecastType.MOSTLY_CLEAR,
-                      forecast.forecastType
-                    ))
+                      isPredictedForecast(
+                        ForecastType.MOSTLY_CLEAR,
+                        forecast.forecastType
+                      ))
                   "
                 />
                 <CloudyNightWidget v-else />
