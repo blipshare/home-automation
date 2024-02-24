@@ -471,7 +471,7 @@ function getCss(idx: number) {
 
   // create a box to represent the current hour forecast
   if (currHourIdx != null && currHourIdx.value == idx) {
-    css = css + " shadow-rose-400";
+    css = css + " shadow shadow-rose-400";
   }
   return css;
 }
