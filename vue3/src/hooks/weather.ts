@@ -273,6 +273,6 @@ export function processWeather() {
     currentTemp,
     splitTime,
     isPredictedForecast,
-    formatCurrTime
+    formatCurrTime,
   };
 }

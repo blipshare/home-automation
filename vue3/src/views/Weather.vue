@@ -62,10 +62,14 @@
                       ForecastType.MOSTLY_SUNNY,
                       forecast.forecastType
                     ) ||
-                    (isPredictedForecast(
-                      ForecastType.MOSTLY_CLEAR,
+                    ((isPredictedForecast(
+                      ForecastType.CLEAR,
                       forecast.forecastType
-                    ) &&
+                    ) ||
+                      isPredictedForecast(
+                        ForecastType.MOSTLY_CLEAR,
+                        forecast.forecastType
+                      )) &&
                       forecast.isDayTime)
                   "
                 />
@@ -191,6 +195,10 @@
                 ) ||
                 isPredictedForecast(
                   ForecastType.MOSTLY_SUNNY,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.CLEAR,
                   forecast.forecastType
                 ) ||
                 isPredictedForecast(
