@@ -96,6 +96,10 @@
                       forecast.forecastType
                     ) ||
                     isPredictedForecast(
+                      ForecastType.SCATTERED_RAIN_SHOWERS,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
                       ForecastType.RAIN_AND_SNOW,
                       forecast.forecastType
                     ) ||
@@ -248,6 +252,10 @@
                 ) ||
                 isPredictedForecast(
                   ForecastType.SLIGHT_CHANCE_LIGHT_RAIN,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.SCATTERED_RAIN_SHOWERS,
                   forecast.forecastType
                 ) ||
                 isPredictedForecast(

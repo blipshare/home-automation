@@ -10,6 +10,7 @@ export enum ForecastType {
   CHANCE_LIGHT_RAIN = "Chance Light Rain",
   LIGHT_RAIN_LIKELY = "Light Rain Likely",
   RAIN = "Rain",
+  SCATTERED_RAIN_SHOWERS = "Scattered Rain Showers",
   RAIN_AND_SNOW = "Rain And Snow",
   RAIN_AND_SNOW_LIKELY = "Rain And Snow Likely",
   CHANCE_RAIN_AND_SNOW = "Chance Rain And Snow",
