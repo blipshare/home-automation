@@ -100,6 +100,10 @@
                       forecast.forecastType
                     ) ||
                     isPredictedForecast(
+                      ForecastType.CHANCE_RAIN_SHOWERS,
+                      forecast.forecastType
+                    ) ||
+                    isPredictedForecast(
                       ForecastType.RAIN_AND_SNOW,
                       forecast.forecastType
                     ) ||
@@ -256,6 +260,10 @@
                 ) ||
                 isPredictedForecast(
                   ForecastType.SCATTERED_RAIN_SHOWERS,
+                  forecast.forecastType
+                ) ||
+                isPredictedForecast(
+                  ForecastType.CHANCE_RAIN_SHOWERS,
                   forecast.forecastType
                 ) ||
                 isPredictedForecast(
