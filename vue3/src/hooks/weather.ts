@@ -266,7 +266,7 @@ export function processWeather() {
       const hour = currentTime.value.getHours();
       const mins = currentTime.value.getMinutes();
 
-      if (hour == 22 && mins == 31) {
+      if (hour == 22 && mins == 37) {
         console.log("gets here to refresh");
         await getHourlyData();
       }
