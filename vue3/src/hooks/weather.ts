@@ -141,11 +141,16 @@ export function processWeather() {
       const currTime = currentTime.value.getTime();
       const forecasts = allData.value[today.value];
       // find the temp within the start and end of the current time
-      const timeIdx = forecasts.findIndex(
+      let timeIdx = forecasts.findIndex(
         (forecast) =>
           forecast.rawStartTime.getTime() >= currTime &&
           currTime < forecast.rawEndTime.getTime()
       );
+
+      // handle the boundary use case
+      if (currentTime.value.getHours() == 23) {
+        timeIdx = 24;
+      }
 
       if (timeIdx >= 0) {
         currHourIdx.value = timeIdx == 0 ? timeIdx : timeIdx - 1;
