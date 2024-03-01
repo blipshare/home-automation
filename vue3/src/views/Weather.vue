@@ -494,9 +494,14 @@ function getCss(idx: number) {
   }
 
   // create a box to represent the current hour forecast
-  if (currHourIdx != null && currHourIdx.value == idx) {
-    css = css + " shadow shadow-rose-400";
+  if (currHourIdx != null && currHourIdx.value != null) {
+    if (idx == currHourIdx.value) {
+      css = css + " shadow shadow-rose-400";
+    } else if (idx < currHourIdx.value) {
+      css = css + " disabled";
+    }
   }
+
   return css;
 }
 </script>
