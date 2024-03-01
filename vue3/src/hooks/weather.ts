@@ -20,7 +20,7 @@ export function processWeather() {
   const today = ref<string>();
   const currentTime = ref<Date>();
   const currentTemp = ref<Number>();
-  const currentForecast = ref<ForecastType>();
+  const currentForecast = ref<HourlyData>();
   const currHour = ref<Number>();
   const currHourIdx = ref<number>();
   const allData = ref<Record<string, HourlyData[]>>();
@@ -132,7 +132,7 @@ export function processWeather() {
 
   async function setCurrentTemp() {
     let temp = -1;
-    let forecastType = ForecastType.UNDEFINED;
+
     if (
       currentTime.value != null &&
       allData.value != null &&
@@ -150,14 +150,13 @@ export function processWeather() {
       if (timeIdx >= 0) {
         currHourIdx.value = timeIdx == 0 ? timeIdx : timeIdx - 1;
         temp = forecasts[currHourIdx.value].temp;
-        forecastType = forecasts[currHourIdx.value].forecastType;
+        currentForecast.value = forecasts[currHourIdx.value];
       }
     }
 
     console.log("curr hour idx: ");
     console.log(currHourIdx.value);
     currentTemp.value = temp;
-    currentForecast.value = forecastType;
   }
 
   function formatCurrTime() {
@@ -266,8 +265,7 @@ export function processWeather() {
       const hour = currentTime.value.getHours();
       const mins = currentTime.value.getMinutes();
       const secs = currentTime.value.getSeconds();
-      if (hour == 22 && mins == 43 && secs == 0) {
-        console.log("gets here to refresh");
+      if (hour == 0 && mins == 2 && secs == 0) {
         await getHourlyData();
       }
       if (currHour.value == null || currHour.value != hour) {
@@ -290,6 +288,7 @@ export function processWeather() {
     dailyData,
     today,
     currentTemp,
+    currentForecast,
     currHourIdx,
     splitTime,
     isPredictedForecast,
