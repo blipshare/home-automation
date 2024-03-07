@@ -3,6 +3,10 @@ FROM --platform=linux/arm64/v8 alpine:edge as builder
 ARG USERNAME=node
 ARG GROUP=node
 
+# update the system
+RUN apk update && \
+    apk add sudo sox npm nodejs git
+
 RUN addgroup -S $GROUP && \
     adduser -S $USERNAME -G $GROUP
 
@@ -10,9 +14,7 @@ COPY . /app
 
 WORKDIR /app
 
-RUN /bin/sh ./scripts/build_edge.sh && \
-    chown -R $USERNAME /app
+RUN chown -R $USERNAME /app
 
 # Set the default user
 USER $USERNAME
-

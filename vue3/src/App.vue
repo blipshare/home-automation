@@ -12,4 +12,5 @@ const { currentRoute } = useRouter();
 const layout = computed(
   () => `${currentRoute.value.meta.layout || defaultLayout}-layout`
 );
+localStorage.setItem("selected-view", JSON.stringify("weather"));
 </script>

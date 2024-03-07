@@ -1,4 +1,4 @@
-FROM --platform=linux/arm/v8 alpine:latest as builder
+FROM --platform=linux/arm/v8 alpine:edge as builder
 
 ARG USERNAME=node
 ARG GROUP=node
@@ -16,11 +16,12 @@ COPY . /app
 WORKDIR /app/vue3
 
 # clean the cache
-RUN rm -rf /var/cache/apk/* && \
-    rm -rf ./node_modules ./dist    
+RUN rm -rf node_modules && \
+    rm -rf /var/cache/apk/* && \
+    rm -rf ./node_modules ./dist
 
 # build the app
-RUN npm install && npm run build && \
+RUN npm install && npm run build-only && \
     chown -R $USERNAME /app
 
 # Set the default user

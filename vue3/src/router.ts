@@ -6,6 +6,7 @@ import Landing from "./views/Landing.vue";
 import Login from "./views/Login.vue";
 import Home from "./views/Home.vue";
 import SpeechDataTable from "./views/SpeechDataTable.vue";
+import Weather from "./views/Weather.vue"
 //import RepDataTable from "./views/RepDataTable.vue";
 //import MLModel from "./views/MLModel.vue";
 
@@ -29,6 +30,11 @@ const routes: RouteRecordRaw[] = [
     path: "/home",
     name: "Home",
     component: Home,
+  },
+  {
+    path: "/weather",
+    name: "weather",
+    component: Weather,
   },
   {
     path: "/speech_data",
