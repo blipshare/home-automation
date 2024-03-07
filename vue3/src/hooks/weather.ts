@@ -270,13 +270,11 @@ export function processWeather() {
       const hour = currentTime.value.getHours();
       const mins = currentTime.value.getMinutes();
       const secs = currentTime.value.getSeconds();
-      if (hour == 23 && mins == 29 && secs == 0) {
-        console.log("Gets here in refresh");
+      if (hour == 0 && mins == 2 && secs == 0) {
         allData.value = undefined;
         await getHourlyData();
       }
       if (currHour.value == null || currHour.value != hour) {
-        console.log("setting current temp: ");
         currHour.value = hour;
         setCurrentTemp();
       }
